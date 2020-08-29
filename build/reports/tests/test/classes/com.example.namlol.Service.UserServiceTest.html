@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.namlol.Service.html">com.example.namlol.Service</a> &gt; UserServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">2.483s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">googleClawling()</td>
+<td class="success">2.483s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>13:04:37.479 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+13:04:37.499 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+13:04:37.533 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.example.namlol.Service.UserServiceTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+13:04:37.557 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.namlol.Service.UserServiceTest], using SpringBootContextLoader
+13:04:37.564 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.namlol.Service.UserServiceTest]: class path resource [com/example/namlol/Service/UserServiceTest-context.xml] does not exist
+13:04:37.565 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.namlol.Service.UserServiceTest]: class path resource [com/example/namlol/Service/UserServiceTestContext.groovy] does not exist
+13:04:37.565 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.namlol.Service.UserServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+13:04:37.566 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.namlol.Service.UserServiceTest]: UserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:04:37.683 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.example.namlol.Service.UserServiceTest]
+13:04:37.814 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\projects\nam-lol\build\classes\java\main\com\example\namlol\NamLolApplication.class]
+13:04:37.816 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.namlol.NamLolApplication for test class com.example.namlol.Service.UserServiceTest
+13:04:37.956 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.example.namlol.Service.UserServiceTest]: using defaults.
+13:04:37.959 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+13:04:37.990 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@739f455d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@136d720b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@70226e4b, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7f221f78, org.springframework.test.context.support.DirtiesContextTestExecutionListener@769e086c, org.springframework.test.context.transaction.TransactionalTestExecutionListener@e1bd19e, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6da8b620, org.springframework.test.context.event.EventPublishingTestExecutionListener@21ead32, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4450875, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5402be42, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7cb30b54, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@bb34ecd, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@2799e96e, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@66a8b371]
+13:04:37.995 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@2ecdc818 testClass = UserServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@2af5a4dc testClass = UserServiceTest, locations = '{}', classes = '{class com.example.namlol.NamLolApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2bf5e740, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@34d0036a, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@51aaf270, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@41e94821, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1d6d431b, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+13:04:38.025 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::       (v2.4.0-SNAPSHOT)
+
+2020-08-29 13:04:38.404  INFO 30684 --- [    Test worker] c.e.namlol.Service.UserServiceTest       : Starting UserServiceTest using Java 14.0.2 on po-PC with PID 30684 (started by MAIN in C:\projects\nam-lol)
+2020-08-29 13:04:38.407  INFO 30684 --- [    Test worker] c.e.namlol.Service.UserServiceTest       : No active profile set, falling back to default profiles: default
+2020-08-29 13:04:39.489  INFO 30684 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-08-29 13:04:39.582  INFO 30684 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 3 JPA repository interfaces.
+2020-08-29 13:04:40.242  INFO 30684 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-08-29 13:04:40.331  INFO 30684 --- [         task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-08-29 13:04:40.412  INFO 30684 --- [         task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2020-08-29 13:04:40.651  INFO 30684 --- [         task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-08-29 13:04:40.804  INFO 30684 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-08-29 13:04:40.819  INFO 30684 --- [         task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-08-29 13:04:40.940  INFO 30684 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31230b13, org.springframework.security.web.context.SecurityContextPersistenceFilter@34e48fdb, org.springframework.security.web.header.HeaderWriterFilter@23139c9f, org.springframework.security.web.authentication.logout.LogoutFilter@7558f39b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@462f4291, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53e90bc4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a028c35, org.springframework.security.web.session.SessionManagementFilter@6c4d2ddf, org.springframework.security.web.access.ExceptionTranslationFilter@1a939c49, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1bee9895]
+2020-08-29 13:04:41.256  INFO 30684 --- [         task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-08-29 13:04:41.294  INFO 30684 --- [         task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2020-08-29 13:04:42.611  INFO 30684 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-08-29 13:04:42.620  INFO 30684 --- [         task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-08-29 13:04:43.242  INFO 30684 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2020-08-29 13:04:43.588  INFO 30684 --- [    Test worker] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-08-29 13:04:44.074  INFO 30684 --- [    Test worker] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-08-29 13:04:44.082  INFO 30684 --- [    Test worker] c.e.namlol.Service.UserServiceTest       : Started UserServiceTest in 6.049 seconds (JVM running for 7.585)
+&lt;a href=&quot;./articles/CBMiQmh0dHBzOi8vZW4uYXMuY29tL2VuLzIwMjAvMDgvMjgvbGF0ZXN0X25ld3MvMTU5ODU5NjM5M184NTYwMzcuaHRtbNIBRmh0dHBzOi8vZW4uYXMuY29tL2VuLzIwMjAvMDgvMjgvbGF0ZXN0X25ld3MvMTU5ODU5NjM5M184NTYwMzcuYW1wLmh0bWw?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Coronavirus live updates: Nigeria, South Africa, Egypt, Ghana... cases, deaths and news&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CAIiEAkk7dmhq93Sc0b1UA3tezMqGQgEKhAIACoHCAowocv1CjCSptoCMPrTpgU?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Doctors find possible case of Covid-19 reinfection in US&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CAIiEHouA9Akp3SJr0Q8tg5CAW8qGAgEKg8IACoHCAowr9eeCTDYlm4whdicAQ?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Should Ahmad Tibi be Israel’s coronavirus czar?&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CBMiLmh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy93b3JsZC1ldXJvcGUtNTM5NTQ1NjLSATJodHRwczovL3d3dy5iYmMuY29tL25ld3MvYW1wL3dvcmxkLWV1cm9wZS01Mzk1NDU2Mg?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Coronavirus: France sees 'exponential rise' in cases&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CBMibWh0dHBzOi8vZWRpdGlvbi5jbm4uY29tL3dvcmxkL2xpdmUtbmV3cy9jb3JvbmF2aXJ1cy1wYW5kZW1pYy0wOC0yOC0yMC1pbnRsL2hfYzg3ZDZhNjYyOTk0ZTJjMTM1NzY2NDcwODViNDM1MDDSAQA?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;India sets global record for number of new Covid-19 cases reported in a day&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CBMihAFodHRwczovL2ZpbmFuY2UueWFob28uY29tL25ld3MvY29yb25hdmlydXMtdXBkYXRlLXVzLWNvbmZpcm1zLWZpcnN0LWNvdmlkLXJlaW5mZWN0aW9uLWFzLWNoaW5hLXNob3dzLXZhY2NpbmUtcHJvZ3Jlc3MtMTY1NTQ0MzI1Lmh0bWzSAYwBaHR0cHM6Ly9maW5hbmNlLnlhaG9vLmNvbS9hbXBodG1sL25ld3MvY29yb25hdmlydXMtdXBkYXRlLXVzLWNvbmZpcm1zLWZpcnN0LWNvdmlkLXJlaW5mZWN0aW9uLWFzLWNoaW5hLXNob3dzLXZhY2NpbmUtcHJvZ3Jlc3MtMTY1NTQ0MzI1Lmh0bWw?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Coronavirus update: US confirms first COVID reinfection as China shows vaccine progress&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CAIiEK973qjZWKvaeMm5sICKiTEqGAgEKg8IACoHCAow1tzJATDnyxUww8rPBg?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;How Coronavirus Overpowered the World Health Organization&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CBMiUWh0dHBzOi8vd3d3LmNubi5jb20vd29ybGQvbGl2ZS1uZXdzL2Nvcm9uYXZpcnVzLXBhbmRlbWljLTA4LTI4LTIwLWludGwvaW5kZXguaHRtbNIBVWh0dHBzOi8vYW1wLmNubi5jb20vY25uL3dvcmxkL2xpdmUtbmV3cy9jb3JvbmF2aXJ1cy1wYW5kZW1pYy0wOC0yOC0yMC1pbnRsL2luZGV4Lmh0bWw?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;The latest on the coronavirus pandemic: Live updates&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CAIiEI4iKf66lmjYZVxfDKfslJsqFggEKg4IACoGCAowjJ0RMKC-AjCwjQ0?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;These Scientists Are Still Studying The World’s Most Controversial Drug, But They Can’t Find Enough People To Take It&lt;/a&gt;
+===========
+&lt;a href=&quot;./articles/CAIiEBFWMvnuinxYOfd-rnkWUM4qMwgEKioIACIQjry_YPDACxKLbeLPU-ztoCoUCAoiEI68v2DwwAsSi23iz1Ps7aAwsK7EBg?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;India’s Covid-19 outbreak is now the world’s fastest-growing&lt;/a&gt;
+===========
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 6.4.1</a> at 2020. 8. 29. 오후 1:04:46</p>
+</div>
+</div>
+</body>
+</html>

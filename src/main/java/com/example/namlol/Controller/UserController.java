@@ -52,4 +52,10 @@ public class UserController {
     public List<Map<String,String>> naverClawling() throws IOException {
         return userService.naverClawling();
     }
+
+    @GetMapping("/googleCrawling")
+    public List<Map<String,String>> googleClawling() throws IOException {
+        return userService.googleClawling();
+    }
+
 }

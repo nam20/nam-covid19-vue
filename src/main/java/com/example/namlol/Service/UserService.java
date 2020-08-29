@@ -35,6 +35,7 @@ public class UserService {
     }
 
     private static String NAVER_CRAWLING_URL = "https://search.naver.com/search.naver?query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%99%95%EC%A7%84%EC%9E%90&where=news&ie=utf8&sm=nws_hty";
+    private static String GOOGLE_CRAWLING_URL = "https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNREZqY0hsNUVnSmxiaWdBUAE/sections/CAQqEAgAKgcICjCcuZcLMI_irgMwwLvMBg?hl=en-US&gl=US&ceid=US%3Aen";
 
     public Map<String,Object> register(Map<String,String> payload){
         Map<String,Object> map = new HashMap<>();
@@ -105,5 +106,20 @@ public class UserService {
         }
         return res;
         //System.out.println(contents);git
+    }
+
+    public List<Map<String,String>> googleClawling() throws IOException{
+        Document doc = Jsoup.connect(GOOGLE_CRAWLING_URL).get();
+        Elements contents = doc.select("div.DBQmFf div.xrnccd");
+        List<Map<String,String>> res = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            Element element = contents.get(i).select("article h3 a").get(0);
+            Map<String,String> map = new HashMap<>();
+            map.put("title",element.text());
+            map.put("href",element.attr("href"));
+            res.add(map);
+        }
+
+        return res;
     }
 }
