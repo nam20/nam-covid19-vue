@@ -1,147 +1,132 @@
 <template>
-    <v-container > 
-        <v-btn color="success" @click="$router.push('/home')">home</v-btn>
-        <v-btn color="#2196F3" @click="$router.push('/signup')">회원가입</v-btn>
-        <v-btn color="warning" @click="$router.push('/login')">로그인</v-btn>
-        <v-btn @click="$router.push('/nav')">테스트</v-btn>
-        <v-btn @click="$router.push('/postForm')">에디터</v-btn>
-        <v-btn @click="$router.push('/postList')">게시판</v-btn>
-        <v-btn @click="$router.push('/chartjs')">뷰차트 테스트</v-btn>
+    <v-app>
+
+
         
-        <!-- <v-col >
-            <v-card
-                class="mx-auto"
-                max-width="344"
-                outlined
-                v-if="worldTotal"
-            >
-               
-                <v-list-item three-line >
-                    <v-list-item-content class="justify-center">
-                        <v-card-title >확진</v-card-title>
-                        <v-card-text>{{worldTotal.TotalConfirmed}}</v-card-text>
-                    </v-list-item-content >
-                    <v-list-item-content class="justify-center">
-                        <v-card-title >완치</v-card-title>
-                        <v-card-text>{{worldTotal.TotalRecovered}}</v-card-text>
+
+
+        
+
+        
+
+        <v-container fluid > 
+            <!-- <v-btn color="success" @click="$router.push('/home')">home</v-btn>
+            <v-btn color="#2196F3" @click="$router.push('/signup')">회원가입</v-btn>
+            <v-btn color="warning" @click="$router.push('/login')">로그인</v-btn>
+            <v-btn @click="$router.push('/nav')">테스트</v-btn>
+            <v-btn @click="$router.push('/postForm')">에디터</v-btn>
+            <v-btn @click="$router.push('/postList')">게시판</v-btn>
+            <v-btn @click="$router.push('/chartjs')">뷰차트 테스트</v-btn> -->
+            <v-row>
+                <v-col>
+
+                    <v-card>
+                        <v-card-title>
+                            <h2><span class="title mb-1">국내</span></h2>
+                        </v-card-title>
                         
-                    </v-list-item-content >
-                    <v-list-item-content class="justify-center">
-                        <v-card-title >사망</v-card-title>
-                        <v-card-text>{{worldTotal.TotalDeaths}}</v-card-text>
-                        
-                    </v-list-item-content >
-                </v-list-item>
+                        <v-list-item  >
+                            
+                            <v-list-item-content class="justify-center">
+                                <v-card-title >확진</v-card-title>
+                                <v-card-text><h2>{{koreaTotal.TotalConfirmed}}</h2></v-card-text>
+                            </v-list-item-content >
+                            <v-list-item-content class="justify-center">
+                                <v-card-title >완치</v-card-title>
+                                <v-card-text><h2>{{koreaTotal.TotalRecovered}}</h2></v-card-text>
+                                
+                            </v-list-item-content >
+                            <v-list-item-content class="justify-center">
+                                <v-card-title >사망</v-card-title>
+                                <v-card-text><h2>{{koreaTotal.TotalDeaths}}</h2></v-card-text>
+                                
+                            </v-list-item-content >
+                        </v-list-item>
+                    </v-card>
+                </v-col>
+                <v-col >
+                    <v-card>
+                        <v-card-title>
+                            <h2><span class="title mb-1">해외</span></h2>
+                        </v-card-title>
+                        <v-list-item >
+                            
+                            <v-list-item-content class="justify-center">
+                                <v-card-title >확진</v-card-title>
+                                <v-card-text><h2>{{worldTotal.TotalConfirmed}}</h2></v-card-text>
+                            </v-list-item-content >
+                            <v-list-item-content class="justify-center">
+                                <v-card-title >완치</v-card-title>
+                                <v-card-text><h2>{{worldTotal.TotalRecovered}}</h2></v-card-text>
+                                
+                            </v-list-item-content >
+                            <v-list-item-content class="justify-center">
+                                <v-card-title >사망</v-card-title>
+                                <v-card-text><h2>{{worldTotal.TotalDeaths}}</h2></v-card-text>
+                                
+                            </v-list-item-content >
+                        </v-list-item>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col >
+                    <v-card>
+                        <h3>국내 확진자수 증가추이</h3>
+                        <v-switch label="test"></v-switch>
+                        <line-chart 
+                        v-if="loaded"
+                        :chart-data="koreaChartData">
+                        </line-chart>
+                    </v-card>
+                </v-col>
+                <v-col>
+                    <v-card>
+                        <h3>국내 확진자 일일 신규</h3>
+                        <v-switch label="test"></v-switch>
+                        <line-chart 
+                        v-if="loaded"
+                        :chart-data="koreaDailyChartData">
+                        </line-chart>
+                    </v-card>
+                </v-col>
+            </v-row>
             
-              
-            </v-card>
-        </v-col> -->
-
-        <v-row>
-            <v-col>
-                <v-card>
-                    <v-card-title>
-                        <h2><span class="title mb-1">국내</span></h2>
-                    </v-card-title>
-                    
-                    <v-list-item  >
+            <v-row>
+                <v-col cols="12" xs="12" md="6" >
+                    <v-card>
+                        <v-card-title>
+                            <h2><span class="title mb-4">국내 주요 뉴우스</span></h2>
+                        </v-card-title>
+                        <v-card-text v-for="news in naverNews" :key="news">
+                            <h4>
+                                <a :href="news.href" style="text-decoration:none; color:#2d46c4">{{news.title}}</a>
+                            </h4>
+                        </v-card-text>
                         
-                        <v-list-item-content class="justify-center">
-                            <v-card-title >확진</v-card-title>
-                            <v-card-text><h2>{{koreaTotal.TotalConfirmed}}</h2></v-card-text>
-                        </v-list-item-content >
-                        <v-list-item-content class="justify-center">
-                            <v-card-title >완치</v-card-title>
-                            <v-card-text><h2>{{koreaTotal.TotalRecovered}}</h2></v-card-text>
-                            
-                        </v-list-item-content >
-                        <v-list-item-content class="justify-center">
-                            <v-card-title >사망</v-card-title>
-                            <v-card-text><h2>{{koreaTotal.TotalDeaths}}</h2></v-card-text>
-                            
-                        </v-list-item-content >
-                    </v-list-item>
-                </v-card>
-            </v-col>
-            <v-col >
-                <v-card>
-                    <v-card-title>
-                        <h2><span class="title mb-1">해외</span></h2>
-                    </v-card-title>
-                    <v-list-item >
-                        
-                        <v-list-item-content class="justify-center">
-                            <v-card-title >확진</v-card-title>
-                            <v-card-text><h2>{{worldTotal.TotalConfirmed}}</h2></v-card-text>
-                        </v-list-item-content >
-                        <v-list-item-content class="justify-center">
-                            <v-card-title >완치</v-card-title>
-                            <v-card-text><h2>{{worldTotal.TotalRecovered}}</h2></v-card-text>
-                            
-                        </v-list-item-content >
-                        <v-list-item-content class="justify-center">
-                            <v-card-title >사망</v-card-title>
-                            <v-card-text><h2>{{worldTotal.TotalDeaths}}</h2></v-card-text>
-                            
-                        </v-list-item-content >
-                    </v-list-item>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col >
-                <v-card>
-                    <h3>국내 확진자수 증가추이</h3>
-                    <v-switch label="test"></v-switch>
-                    <line-chart 
-                    v-if="loaded"
-                    :chart-data="datacollection">
-                    </line-chart>
-                </v-card>
-            </v-col>
-            <v-col>
-                <v-card>
-                    <h3>국내 확진자수 증가추이</h3>
-                    <v-switch label="test"></v-switch>
-                    <line-chart 
-                    v-if="loaded"
-                    :chart-data="datacollection">
-                    </line-chart>
-                </v-card>
-            </v-col>
-        </v-row>
-        
-        <v-row>
-            <v-col cols="12" xs="12" md="6" >
-                <v-card>
-                    <v-card-title>
-                        <h2><span class="title mb-4">국내 주요 뉴우스</span></h2>
-                    </v-card-title>
-                    <v-card-text v-for="news in naverNews" :key="news">
-                        <h4>
-                            <a :href="news.href" style="text-decoration:none; color:#2d46c4">{{news.title}}</a>
-                        </h4>
-                    </v-card-text>
-                      
-                </v-card>
-            </v-col>
+                    </v-card>
+                </v-col>
 
-            <v-col cols="12" xs="12" md="6" >
-                <v-card>
-                    <v-card-title>
-                        <h2><span class="title mb-4">해외 주요 뉴우스</span></h2>
-                    </v-card-title>
-                    <v-card-text v-for="news in googleNews" :key="news">
-                        <h4>
-                            <a :href="news.href" style="text-decoration:none; color:#2d46c4">{{news.title}}</a>
-                        </h4>
-                    </v-card-text>
-                      
-                </v-card>
-            </v-col>
-        </v-row>
+                <v-col cols="12" xs="12" md="6" >
+                    <v-card>
+                        <v-card-title>
+                            <h2><span class="title mb-4">해외 주요 뉴우스</span></h2>
+                        </v-card-title>
+                        <v-card-text v-for="news in googleNews" :key="news">
+                            <h4>
+                                <a :href="news.href" style="text-decoration:none; color:#2d46c4">{{news.title}}</a>
+                            </h4>
+                        </v-card-text>
+                        
+                    </v-card>
+                </v-col>
+            </v-row>
+            
+        </v-container>
         
-    </v-container>
+        
+    </v-app>
+    
 </template>
 
 <script>
@@ -155,10 +140,12 @@ export default {
         return {
             worldTotal:{},
             koreaTotal:{},
-            datacollection: null,
+            koreaChartData: null,
+            koreaDailyChartData:null,
             loaded:false,
             naverNews:'',
-            googleNews:''
+            googleNews:'',
+            
         }
     },
     created(){
@@ -167,6 +154,7 @@ export default {
         this.googleCrawling()
         
         this.naverCrawling()
+        this.covidGenAge();
     },
     methods:{
         getWorldTotal(){
@@ -190,7 +178,7 @@ export default {
                 let confirmed = data.map(covid => covid.Confirmed)
                 let recovered = data.map(covid => covid.Recovered)
                 let deaths = data.map(covid => covid.Deaths)
-                this.datacollection = {
+                this.koreaChartData = {
                     labels: dates,
                     datasets:[
                         {
@@ -221,20 +209,41 @@ export default {
                         
                     ]
                 }
+                
+                let dailyConfirmed = confirmed.slice(confirmed.length - 31)
+                let dailyDates = dates.slice(dates.length - 30)
+                
+                for(let i=0; i<30; i++){
+                    dailyConfirmed[i] = dailyConfirmed[i+1] - dailyConfirmed[i]
+                }
+                console.log(dailyConfirmed)
+                this.koreaDailyChartData = {
+                    labels: dailyDates,
+                    datasets:[
+                        {
+                            label: 'Confirmed',
+                            borderColor:'#03fcec',
+                            backgroundColor:'rgba(3, 252, 236, 0.2)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: dailyConfirmed.slice(0,dailyConfirmed.length-1)
+                        }
+                    ]
+                }
+
                 this.koreaTotal = {
                     TotalConfirmed : this.numberFormat(confirmed[confirmed.length-1]),
                     TotalDeaths : this.numberFormat(deaths[deaths.length-1]),
                     TotalRecovered : this.numberFormat(recovered[recovered.length-1])
                 }
                 this.loaded = true
-
             }catch(e){
                 console.error(e)
             }
         },
         async naverCrawling(){
             try{
-                let { data } = await axios.get('/user/naverCrawling')
+                let { data } = await axios.get('/covid/naverCrawling')
                 this.naverNews = data
             }catch(e){
                 console.error(e)
@@ -242,15 +251,26 @@ export default {
         },
         async googleCrawling(){
             try{
-                let { data } = await axios.get('/user/googleCrawling')
+                let { data } = await axios.get('/covid/googleCrawling')
                 this.googleNews = data
+            }catch(e){
+                console.error(e)
+            }
+        },
+        async covidGenAge(){
+            try{
+                let res = await axios.get('/covid/caseGenAge')
+                console.log(res)
+                
+
             }catch(e){
                 console.error(e)
             }
         },
         numberFormat(input){
             return input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
+        },
+        
             
     }
 }
