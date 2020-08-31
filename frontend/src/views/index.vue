@@ -1,22 +1,13 @@
 <template>
-    <v-app>
-
-
-        
-
-
-        
-
-        
-
+    
         <v-container fluid > 
             <!-- <v-btn color="success" @click="$router.push('/home')">home</v-btn>
             <v-btn color="#2196F3" @click="$router.push('/signup')">회원가입</v-btn>
             <v-btn color="warning" @click="$router.push('/login')">로그인</v-btn>
             <v-btn @click="$router.push('/nav')">테스트</v-btn>
             <v-btn @click="$router.push('/postForm')">에디터</v-btn>
-            <v-btn @click="$router.push('/postList')">게시판</v-btn>
-            <v-btn @click="$router.push('/chartjs')">뷰차트 테스트</v-btn> -->
+            <v-btn @click="$router.push('/postList')">게시판</v-btn> -->
+            <v-btn @click="$router.push('/chartjs')">뷰차트 테스트</v-btn>
             <v-row>
                 <v-col>
 
@@ -100,7 +91,7 @@
                         </v-card-title>
                         <v-card-text v-for="news in naverNews" :key="news">
                             <h4>
-                                <a :href="news.href" style="text-decoration:none; color:#2d46c4">{{news.title}}</a>
+                                <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
                             </h4>
                         </v-card-text>
                         
@@ -114,37 +105,108 @@
                         </v-card-title>
                         <v-card-text v-for="news in googleNews" :key="news">
                             <h4>
-                                <a :href="news.href" style="text-decoration:none; color:#2d46c4">{{news.title}}</a>
+                                <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
                             </h4>
                         </v-card-text>
                         
                     </v-card>
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col>
+                    <v-card>
+                        <h3>연령대별 확진자 현황</h3>
+                        <bar-chart
+                        :chart-data="koreaAgeChartData"
+                        v-if="genAgeChartLoaded">
+                        </bar-chart>
+                    </v-card>
+                    <v-card>
+                        <h3>연령대별 치명율 현황</h3>
+                        <bar-chart
+                        :chart-data="koreaCriticalChartData"
+                        v-if="genAgeChartLoaded">
+                        </bar-chart>
+                    </v-card>
+                </v-col>
+            </v-row>
             
+            <v-row>
+                <v-col>
+                    <v-card>
+                        <h3>성별 확진자 현황</h3>
+                        <bar-chart
+                        :chart-data="koreaGenChartData"
+                        v-if="genAgeChartLoaded">
+                        </bar-chart>
+                    </v-card>
+                    <v-card>
+                        <h3>도시별 확진자 현황</h3>
+                        <bar-chart
+                        :chart-data="koreaCityChartData"
+                        v-if="cityChartLoaded">
+                        </bar-chart>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col>
+                    <v-card>
+                        <GChart
+                            type="ColumnChart"
+                            :data="chartData"
+                            :options="chartOptions"
+                        />
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
         
-        
-    </v-app>
-    
 </template>
 
 <script>
 import LineChart from '@/components/LineChart'
+import BarChart from '@/components/BarChart'
+import { GChart } from 'vue-google-charts'
 
 export default {
     components:{
-        LineChart
+        LineChart,
+        BarChart,
+        GChart,
     },
     data(){
         return {
             worldTotal:{},
             koreaTotal:{},
-            koreaChartData: null,
+            koreaTotalChartData: null,
             koreaDailyChartData:null,
+            koreaGenChartData:null,
+            koreaAgeChartData:null,
+            koreaCriticalChartData:null,
+            koreaCityChartData:null,
             loaded:false,
             naverNews:'',
             googleNews:'',
+            genAgeChartLoaded:false,
+            cityChartLoaded:false,
+
+            chartData: [
+                ['Year', 'Sales', 'Expenses', 'Profit'],
+                ['2014', 1000, 400, 200],
+                ['2015', 1170, 460, 250],
+                ['2016', 660, 1120, 300],
+                ['2017', 1030, 540, 350]
+
+                
+            ],
+            chartOptions: {
+                chart: {
+                title: 'Company Performance',
+                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                }
+            }
+
             
         }
     },
@@ -155,6 +217,7 @@ export default {
         
         this.naverCrawling()
         this.covidGenAge();
+        this.covidCity();
     },
     methods:{
         getWorldTotal(){
@@ -259,9 +322,90 @@ export default {
         },
         async covidGenAge(){
             try{
-                let res = await axios.get('/covid/caseGenAge')
+                let res = await axios.get('/covid/case',{
+                    params: {
+                        serviceCase : 'genAge'
+                    }
+                })
                 console.log(res)
+                let data = res.data.response.body.items.item
+                let ageData = data.slice(0, 9)
+                let genData = data.slice(9, 11)
                 
+                let age = ageData.map(genAge => genAge.gubun)
+               
+                this.koreaAgeChartData = {
+                    labels : age,
+                    datasets:[
+                        {
+                            label: '확진자',
+                            borderColor:'#03fcec',
+                            backgroundColor:'rgba(3, 252, 236, 0.2)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: ageData.map(genAge => genAge.confCase)
+                        },
+                        
+                    ]
+                }
+
+                this.koreaCriticalChartData = {
+                    labels : age,
+                    datasets:[
+                        {
+                            label: '치명율 (사망자/확진자)',
+                            borderColor:'#03fcec',
+                            backgroundColor:'rgba(3, 252, 236, 0.2)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: ageData.map(genAge => genAge.criticalRate)
+                        },
+                        
+                    ]
+                }
+
+                this.koreaGenChartData = {
+                    labels : genData.map(genAge => genAge.gubun),
+                    datasets: [
+                        {
+                            label: '확진자',
+                            borderColor:'#03fcec',
+                            backgroundColor:'rgba(3, 252, 236, 0.2)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: genData.map(genAge => genAge.confCase)
+                        },
+                    ]
+                }
+                this.genAgeChartLoaded = true
+                console.log(age)
+            }catch(e){
+                console.error(e)
+            }
+        },
+        async covidCity(){
+            try{
+                let res = await axios.get('/covid/case',{
+                    params:{
+                        serviceCase : 'city'
+                    }
+                })
+                let cityData = res.data.response.body.items.item.slice(0, 18)
+                console.log(cityData)
+                this.koreaCityChartData = {
+                    labels: cityData.map(city => city.gubun),
+                    datasets:[
+                        {
+                            label: '확진자',
+                            borderColor:'#03fcec',
+                            backgroundColor:'rgba(3, 252, 236, 0.2)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: cityData.map(city => city.defCnt)
+                        }
+                    ]
+                }
+                this.cityChartLoaded = true
 
             }catch(e){
                 console.error(e)

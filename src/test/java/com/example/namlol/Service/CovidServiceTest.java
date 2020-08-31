@@ -17,8 +17,7 @@ class CovidServiceTest {
     @Autowired
     CovidService covidService;
 
-    @Test
-    void caseGenAge() throws IOException {
-        covidService.caseGenAge();
-    }
+
+
+
 }

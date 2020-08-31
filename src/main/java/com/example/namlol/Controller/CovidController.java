@@ -1,9 +1,7 @@
 package com.example.namlol.Controller;
 
 import com.example.namlol.Service.CovidService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,9 +28,9 @@ public class CovidController {
         return covidService.googleClawling();
     }
 
-    @GetMapping("/caseGenAge")
-    public String caseGenAge() throws IOException{
-        return covidService.caseGenAge();
+    @GetMapping("/case")
+    public String caseGenAge(@RequestParam String serviceCase) throws IOException{
+        return covidService.covidCase(serviceCase);
     }
 
 }
