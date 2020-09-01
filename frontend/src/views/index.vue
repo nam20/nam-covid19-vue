@@ -153,7 +153,8 @@
                 <v-col>
                     <v-card>
                         <GChart
-                            type="ColumnChart"
+                            type="GeoChart"
+                            :settings="{ packages: [ 'geochart']}"
                             :data="chartData"
                             :options="chartOptions"
                         />
@@ -192,19 +193,27 @@ export default {
             cityChartLoaded:false,
 
             chartData: [
-                ['Year', 'Sales', 'Expenses', 'Profit'],
-                ['2014', 1000, 400, 200],
-                ['2015', 1170, 460, 250],
-                ['2016', 660, 1120, 300],
-                ['2017', 1030, 540, 350]
-
+                // ['Country', 'Popularity'],
+                // ['Germany', 200],
+                // ['United States', 300],
+                // ['Brazil', 400],
+                // ['Canada', 500],
+                // ['France', 600],
+                // ['RU', 700],
+                // ['KR',500]
+                ['Destination', 'Popularity'],
+                ['KR-11',600],
+                ['KR-50',400],
+                ['KR-27',400]
                 
             ],
             chartOptions: {
-                chart: {
-                title: 'Company Performance',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                }
+                region: 'KR',
+                resolution: 'provinces'
+                // chart: {
+                // title: 'Company Performance',
+                // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                // }
             }
 
             
@@ -212,7 +221,7 @@ export default {
     },
     created(){
         this.getWorldTotal()
-        this.corona()
+        this.getKoreaTotal()
         this.googleCrawling()
         
         this.naverCrawling()
@@ -220,20 +229,27 @@ export default {
         this.covidCity();
     },
     methods:{
-        getWorldTotal(){
-            axios.get('https://api.covid19api.com/world/total')
-            .then(({data})=>{
-                this.worldTotal = {
-                    TotalConfirmed : this.numberFormat(data.TotalConfirmed),
-                    TotalDeaths : this.numberFormat(data.TotalDeaths),
-                    TotalRecovered : this.numberFormat(data.TotalRecovered)
-                }
-            })
-            .catch(err=>{
-                console.error(err)
-            })
+        // getWorldTotal(){
+        //     axios.get('https://api.covid19api.com/world/total')
+        //     .then(({data})=>{
+        //         this.worldTotal = {
+        //             TotalConfirmed : this.numberFormat(data.TotalConfirmed),
+        //             TotalDeaths : this.numberFormat(data.TotalDeaths),
+        //             TotalRecovered : this.numberFormat(data.TotalRecovered)
+        //         }
+        //     })
+        //     .catch(err=>{
+        //         console.error(err)
+        //     })
+        // },
+        async getWorldTotal(){
+            try{
+                
+            }catch(e){
+                console.error(e)
+            }
         },
-        async corona(){
+        async getKoreaTotal(){
             try{
                 let { data } = await axios.get('https://api.covid19api.com/total/country/south-korea')
                 console.log(data)
@@ -322,11 +338,7 @@ export default {
         },
         async covidGenAge(){
             try{
-                let res = await axios.get('/covid/case',{
-                    params: {
-                        serviceCase : 'genAge'
-                    }
-                })
+                let res = await axios.get('/covid/case/genAge')
                 console.log(res)
                 let data = res.data.response.body.items.item
                 let ageData = data.slice(0, 9)
@@ -385,11 +397,7 @@ export default {
         },
         async covidCity(){
             try{
-                let res = await axios.get('/covid/case',{
-                    params:{
-                        serviceCase : 'city'
-                    }
-                })
+                let res = await axios.get('/covid/case/city')
                 let cityData = res.data.response.body.items.item.slice(0, 18)
                 console.log(cityData)
                 this.koreaCityChartData = {

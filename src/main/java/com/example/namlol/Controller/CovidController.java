@@ -28,8 +28,8 @@ public class CovidController {
         return covidService.googleClawling();
     }
 
-    @GetMapping("/case")
-    public String caseGenAge(@RequestParam String serviceCase) throws IOException{
+    @GetMapping("/case/{serviceCase}")
+    public String caseGenAge(@PathVariable String serviceCase) throws IOException{
         return covidService.covidCase(serviceCase);
     }
 
