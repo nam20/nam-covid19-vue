@@ -150,14 +150,52 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col>
-                    <v-card>
+                <v-col cols="6">
+                    <v-card >
                         <GChart
                             type="GeoChart"
                             :settings="{ packages: [ 'geochart']}"
                             :data="chartData"
                             :options="chartOptions"
                         />
+                    </v-card>
+                </v-col>
+                <v-col cols="6">
+                    <v-card>
+                        <v-carousel
+                            cycle
+                            
+                            hide-delimiter-background
+                            show-arrows-on-hover
+                            
+                        >
+                            <v-carousel-item
+                            v-for="slide in slides"
+                            :key="slide"
+                            :src="slide.src"
+                        
+                            >
+                           
+                               
+                               
+                            </v-carousel-item>
+                        </v-carousel>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card>
+                        <h3>전세계 증가추이</h3>
+                        <line-chart
+                        :chart-data="worldChartData"
+                        v-if="worldChartLoaded">
+                        </line-chart>
+                    </v-card>
+                </v-col>
+                <v-col>
+                    <v-card>
+                        
                     </v-card>
                 </v-col>
             </v-row>
@@ -169,6 +207,7 @@
 import LineChart from '@/components/LineChart'
 import BarChart from '@/components/BarChart'
 import { GChart } from 'vue-google-charts'
+
 
 export default {
     components:{
@@ -186,11 +225,13 @@ export default {
             koreaAgeChartData:null,
             koreaCriticalChartData:null,
             koreaCityChartData:null,
+            worldChartData:null,
             loaded:false,
             naverNews:'',
             googleNews:'',
             genAgeChartLoaded:false,
             cityChartLoaded:false,
+            worldChartLoaded:false,
 
             chartData: [
                 // ['Country', 'Popularity'],
@@ -214,7 +255,22 @@ export default {
                 // title: 'Company Performance',
                 // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
                 // }
-            }
+            },
+            slides:[
+                {
+                    src: 'images/corona-1.jpg'
+                },
+                {
+                    src: 'images/corona-2.jpg'
+                },
+                {
+                    src: 'images/corona-3.jpg'
+                },
+                {
+                    src: 'images/corona-4.jpg'
+                },
+                
+            ]
 
             
         }
@@ -227,6 +283,8 @@ export default {
         this.naverCrawling()
         this.covidGenAge();
         this.covidCity();
+
+       
     },
     methods:{
         // getWorldTotal(){
@@ -244,7 +302,30 @@ export default {
         // },
         async getWorldTotal(){
             try{
-                
+                let { data } = await axios.get('/covid/world')
+                console.log(data)
+                this.worldChartData  = {
+                    labels : data.map(covid => covid.reportDate.substring(5)),
+                    datasets:[
+                        {
+                            label: 'Confirmed',
+                            borderColor:'#03fcec',
+                            backgroundColor:'rgba(3, 252, 236, 0.2)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: data.map(covid => covid.confirmed.total)
+                        },
+                        {
+                            label: 'Deaths',
+                            borderColor:'#c70808',
+                            backgroundColor:'rgba(199, 8, 8, 0.7)',
+                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderWidth: 2,
+                            data: data.map(covid => covid.deaths.total)
+                        }
+                    ]
+                }
+                this.worldChartLoaded = true
             }catch(e){
                 console.error(e)
             }

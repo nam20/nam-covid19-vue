@@ -55,7 +55,7 @@ public class CovidService {
         return res;
     }
 
-    public String covidCase(String serviceCase) throws IOException{
+    public String coronaCase(String serviceCase) throws IOException{
 
         Date date = new Date();
         date.setTime(date.getTime() - 1000  * 60 * 60 * 24);
@@ -100,6 +100,29 @@ public class CovidService {
         return sb.toString();
     }
 
+    public String worldTotal() throws IOException{
+        StringBuilder urlBuilder =  new StringBuilder("https://covid19.mathdro.id/api/daily"); /*URL*/
 
+        URL url = new URL(urlBuilder.toString());
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+        System.out.println("Response code: " + conn.getResponseCode());
+        BufferedReader rd;
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+        return sb.toString();
+    }
 
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +19,14 @@ class CovidServiceTest {
     @Autowired
     CovidService covidService;
 
+    @Autowired
+    ServletContext servletContext;
 
+    @Test
+    public void test(){
+        System.out.println(servletContext.getRealPath("/images/corona-1.jpg"));
+        System.out.println(new File(servletContext.getRealPath("/favicon.ico")).exists());
+    }
 
 
 }

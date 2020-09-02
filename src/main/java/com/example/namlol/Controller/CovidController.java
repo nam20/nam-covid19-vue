@@ -30,7 +30,12 @@ public class CovidController {
 
     @GetMapping("/case/{serviceCase}")
     public String caseGenAge(@PathVariable String serviceCase) throws IOException{
-        return covidService.covidCase(serviceCase);
+        return covidService.coronaCase(serviceCase);
+    }
+
+    @GetMapping("/world")
+    public String worldTotal() throws IOException{
+        return covidService.worldTotal();
     }
 
 }
