@@ -28,14 +28,14 @@ public class CovidController {
         return covidService.googleClawling();
     }
 
-    @GetMapping("/case/{serviceCase}")
+    @GetMapping("/korea/{serviceCase}")
     public String caseGenAge(@PathVariable String serviceCase) throws IOException{
-        return covidService.coronaCase(serviceCase);
+        return covidService.koreaCase(serviceCase);
     }
 
-    @GetMapping("/world")
-    public String worldTotal() throws IOException{
-        return covidService.worldTotal();
+    @GetMapping("/world/{serviceCase}")
+    public String worldTotal(@PathVariable String serviceCase) throws IOException{
+        return covidService.worldCase(serviceCase);
     }
 
 }

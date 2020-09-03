@@ -150,41 +150,43 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="6">
+                <v-col cols="12"  md="8" lg="9">
                     <v-card >
                         <GChart
                             type="GeoChart"
-                            :settings="{ packages: [ 'geochart']}"
-                            :data="chartData"
-                            :options="chartOptions"
+                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :data="koreaGeoChartData"
+                            :options="koreaGeoChartOptions"
+                            
                         />
                     </v-card>
                 </v-col>
-                <v-col cols="6">
-                    <v-card>
+                <v-col cols="12" md="4" lg="3">
+                    <v-card >
                         <v-carousel
                             cycle
                             
                             hide-delimiter-background
                             show-arrows-on-hover
-                            
+                            height="auto"
                         >
                             <v-carousel-item
                             v-for="slide in slides"
                             :key="slide"
-                            :src="slide.src"
+                            
                         
                             >
                            
-                               
+                            <v-img :src="slide.src" contain />
                                
                             </v-carousel-item>
                         </v-carousel>
                     </v-card>
                 </v-col>
+                
             </v-row>
             <v-row>
-                <v-col cols="12">
+                <v-col cols="12" >
                     <v-card>
                         <h3>전세계 증가추이</h3>
                         <line-chart
@@ -195,7 +197,20 @@
                 </v-col>
                 <v-col>
                     <v-card>
-                        
+                       
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col>
+                    <v-card>
+                        <GChart
+                            type="GeoChart"
+                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :data="worldGeoChartData"
+                            :options="worldGeoChartOptions"
+                           
+                        />
                     </v-card>
                 </v-col>
             </v-row>
@@ -232,29 +247,45 @@ export default {
             genAgeChartLoaded:false,
             cityChartLoaded:false,
             worldChartLoaded:false,
-
-            chartData: [
-                // ['Country', 'Popularity'],
-                // ['Germany', 200],
-                // ['United States', 300],
-                // ['Brazil', 400],
-                // ['Canada', 500],
-                // ['France', 600],
-                // ['RU', 700],
-                // ['KR',500]
-                ['Destination', 'Popularity'],
-                ['KR-11',600],
-                ['KR-50',400],
-                ['KR-27',400]
+            
+            koreaGeoChartData: [
+               
+                ['City', '확진'],
+                [{v:'KR-49',f:'제주'}],
+                [{v:'KR-48',f:'경남'}],
+                [{v:'KR-47',f:'경북'}],
+                [{v:'KR-46',f:'전남'}],
+                [{v:'KR-45',f:'전북'}],
+                [{v:'KR-44',f:'충남'}],
+                [{v:'KR-43',f:'충북'}],
+                [{v:'KR-42',f:'강원'}],
+                [{v:'KR-41',f:'경기'}],
+                [{v:'KR-50',f:'세종'}],
+                [{v:'KR-31',f:'울산'}],
+                [{v:'KR-30',f:'대전'}],
+                [{v:'KR-29',f:'광주'}],
+                [{v:'KR-28',f:'인천'}],
+                [{v:'KR-27',f:'대구'}],
+                [{v:'KR-26',f:'부산'}],
+                [{v:'KR-11',f:'서울'}],
                 
             ],
-            chartOptions: {
+            koreaGeoChartOptions: {
                 region: 'KR',
-                resolution: 'provinces'
-                // chart: {
-                // title: 'Company Performance',
-                // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                // }
+                resolution: 'provinces',
+                colorAxis:{
+                    minValue: 0,  colors: ['#ffffff', '#f00a0a']
+                }
+            },
+
+            worldGeoChartData:[['Country', '확진']],
+
+
+            worldGeoChartOptions:{
+                resolution: 'countries',
+                colorAxis:{
+                    minValue: 0,  colors: ['#ffffff', '#f00a0a']
+                }
             },
             slides:[
                 {
@@ -284,6 +315,7 @@ export default {
         this.covidGenAge();
         this.covidCity();
 
+        this.getCountryTotal()
        
     },
     methods:{
@@ -302,7 +334,7 @@ export default {
         // },
         async getWorldTotal(){
             try{
-                let { data } = await axios.get('/covid/world')
+                let { data } = await axios.get('/covid/world/daily')
                 console.log(data)
                 this.worldChartData  = {
                     labels : data.map(covid => covid.reportDate.substring(5)),
@@ -326,6 +358,18 @@ export default {
                     ]
                 }
                 this.worldChartLoaded = true
+            }catch(e){
+                console.error(e)
+            }
+        },
+        async getCountryTotal(){
+            try{
+                let { data } = await axios.get('/covid/world/confirmed')
+                console.log(data)
+                data.forEach(covid => {
+                    this.worldGeoChartData.push([covid.countryRegion, covid.confirmed])
+                })
+                
             }catch(e){
                 console.error(e)
             }
@@ -419,7 +463,7 @@ export default {
         },
         async covidGenAge(){
             try{
-                let res = await axios.get('/covid/case/genAge')
+                let res = await axios.get('/covid/korea/genAge')
                 console.log(res)
                 let data = res.data.response.body.items.item
                 let ageData = data.slice(0, 9)
@@ -478,7 +522,7 @@ export default {
         },
         async covidCity(){
             try{
-                let res = await axios.get('/covid/case/city')
+                let res = await axios.get('/covid/korea/city')
                 let cityData = res.data.response.body.items.item.slice(0, 18)
                 console.log(cityData)
                 this.koreaCityChartData = {
@@ -495,6 +539,11 @@ export default {
                     ]
                 }
                 this.cityChartLoaded = true
+
+                for(let i=1; i<cityData.length; i++){
+                    this.koreaGeoChartData[i].push(cityData[i].defCnt)
+                }
+                this.koreaGeoChartLoaded = true
 
             }catch(e){
                 console.error(e)

@@ -55,7 +55,7 @@ public class CovidService {
         return res;
     }
 
-    public String coronaCase(String serviceCase) throws IOException{
+    public String koreaCase(String serviceCase) throws IOException{
 
         Date date = new Date();
         date.setTime(date.getTime() - 1000  * 60 * 60 * 24);
@@ -83,7 +83,7 @@ public class CovidService {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
+        //System.out.println("Response code: " + conn.getResponseCode());
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -100,15 +100,19 @@ public class CovidService {
         return sb.toString();
     }
 
-    public String worldTotal() throws IOException{
-        StringBuilder urlBuilder =  new StringBuilder("https://covid19.mathdro.id/api/daily"); /*URL*/
+    public String worldCase(String serviceCase) throws IOException{
+        StringBuilder urlBuilder =  new StringBuilder(); /*URL*/
+        if(serviceCase.equals("daily"))
+            urlBuilder.append("https://covid19.mathdro.id/api/daily");
+        else if(serviceCase.equals("confirmed"))
+            urlBuilder.append("https://covid19.mathdro.id/api/confirmed");
 
         URL url = new URL(urlBuilder.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
+        //System.out.println("Response code: " + conn.getResponseCode());
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
