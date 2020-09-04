@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,6 +55,25 @@ public class CovidService {
 
         return res;
     }
+
+    public List<Map<String,String>> worldOmeterCrawling() throws IOException{
+        List<Map<String,String>> res = new ArrayList<>();
+        Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus").get();
+        Elements contents = doc.select("table#main_table_countries_today tbody tr");
+        System.out.println("========");
+        System.out.println(contents);
+        for(Element content : contents){
+            Elements elements = content.select("td");
+            Map<String,String> map = new HashMap<>();
+            map.put("country",elements.get(1).text());
+            map.put("confirmed",elements.get(2).text());
+            map.put("deaths",elements.get(4).text());
+            map.put("recovered",elements.get(6).text());
+            res.add(map);
+        }
+        return res;
+    }
+
 
     public String koreaCase(String serviceCase) throws IOException{
 

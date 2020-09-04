@@ -29,4 +29,14 @@ class CovidServiceTest {
     }
 
 
+    @Test
+    void worldOmeterCrawling() throws IOException {
+
+        covidService.worldOmeterCrawling();
+    }
+
+    @Test
+    void testCrawling() throws IOException{
+        covidService.testCrawling();
+    }
 }

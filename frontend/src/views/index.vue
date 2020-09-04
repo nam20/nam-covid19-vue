@@ -274,17 +274,17 @@ export default {
                 region: 'KR',
                 resolution: 'provinces',
                 colorAxis:{
-                    minValue: 0,  colors: ['#ffffff', '#f00a0a']
+                    minValue: 0,  colors: ['#fffcfc', '#b00b0b']
                 }
             },
 
-            worldGeoChartData:[['Country', '확진']],
+            worldGeoChartData:[['Country', '확진'] ],
 
 
             worldGeoChartOptions:{
                 resolution: 'countries',
                 colorAxis:{
-                    minValue: 0,  colors: ['#ffffff', '#f00a0a']
+                    minValue: 0,  colors: ['#fffcfc', '#b00b0b']
                 }
             },
             slides:[
@@ -307,8 +307,8 @@ export default {
         }
     },
     created(){
-        this.getWorldTotal()
-        this.getKoreaTotal()
+        this.getWorldDailyTotal()
+        this.getKoreaDailyTotal()
         this.googleCrawling()
         
         this.naverCrawling()
@@ -316,6 +316,7 @@ export default {
         this.covidCity();
 
         this.getCountryTotal()
+       
        
     },
     methods:{
@@ -332,7 +333,7 @@ export default {
         //         console.error(err)
         //     })
         // },
-        async getWorldTotal(){
+        async getWorldDailyTotal(){
             try{
                 let { data } = await axios.get('/covid/world/daily')
                 console.log(data)
@@ -364,24 +365,42 @@ export default {
         },
         async getCountryTotal(){
             try{
-                let { data } = await axios.get('/covid/world/confirmed')
+                let { data } = await axios.get('/covid/world')
+                
                 console.log(data)
+
+                let total = data[7]
+                
+                this.worldTotal = {
+                    TotalConfirmed : total.confirmed,
+                    TotalDeaths : total.deaths,
+                    TotalRecovered : total.recovered
+                }
+
+                data = data.slice(8,223)
+                data[12].country = 'The United Kingdom'
                 data.forEach(covid => {
-                    this.worldGeoChartData.push([covid.countryRegion, covid.confirmed])
+                    let conf = covid.confirmed.replaceAll(/,/g,'')
+                    this.worldGeoChartData.push([covid.country, parseInt(conf, 10)])
                 })
                 
+                this.worldGeoChartData.push(['United States of America', 5000])
+
             }catch(e){
                 console.error(e)
             }
         },
-        async getKoreaTotal(){
+        async getKoreaDailyTotal(){
             try{
-                let { data } = await axios.get('https://api.covid19api.com/total/country/south-korea')
+                let { data } = await axios.get('/covid/korea/day')
+                
+                data = data.response.body.items.item.reverse()
+                data.splice(116, 2)
                 console.log(data)
-                let dates = data.map(covid => covid.Date.substring(5,10))
-                let confirmed = data.map(covid => covid.Confirmed)
-                let recovered = data.map(covid => covid.Recovered)
-                let deaths = data.map(covid => covid.Deaths)
+                let dates = data.map(covid => covid.createDt.substring(5,10))
+                let confirmed = data.map(covid => covid.decideCnt)
+                let recovered = data.map(covid => covid.clearCnt)
+                let deaths = data.map(covid => covid.deathCnt)
                 this.koreaChartData = {
                     labels: dates,
                     datasets:[
@@ -447,7 +466,7 @@ export default {
         },
         async naverCrawling(){
             try{
-                let { data } = await axios.get('/covid/naverCrawling')
+                let { data } = await axios.get('/covid/news/naver')
                 this.naverNews = data
             }catch(e){
                 console.error(e)
@@ -455,7 +474,7 @@ export default {
         },
         async googleCrawling(){
             try{
-                let { data } = await axios.get('/covid/googleCrawling')
+                let { data } = await axios.get('/covid/news/google')
                 this.googleNews = data
             }catch(e){
                 console.error(e)

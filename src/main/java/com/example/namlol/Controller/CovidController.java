@@ -18,12 +18,12 @@ public class CovidController {
         this.covidService = covidService;
     }
 
-    @GetMapping("/naverCrawling")
+    @GetMapping("/news/naver")
     public List<Map<String,String>> naverClawling() throws IOException {
         return covidService.naverClawling();
     }
 
-    @GetMapping("/googleCrawling")
+    @GetMapping("/news/google")
     public List<Map<String,String>> googleClawling() throws IOException {
         return covidService.googleClawling();
     }
@@ -36,6 +36,11 @@ public class CovidController {
     @GetMapping("/world/{serviceCase}")
     public String worldTotal(@PathVariable String serviceCase) throws IOException{
         return covidService.worldCase(serviceCase);
+    }
+
+    @GetMapping("/world")
+    public List<Map<String,String>> worldOmeter() throws IOException{
+        return covidService.worldOmeterCrawling();
     }
 
 }
