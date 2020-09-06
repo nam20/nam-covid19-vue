@@ -35,8 +35,5 @@ class CovidServiceTest {
         covidService.worldOmeterCrawling();
     }
 
-    @Test
-    void testCrawling() throws IOException{
-        covidService.testCrawling();
-    }
+
 }

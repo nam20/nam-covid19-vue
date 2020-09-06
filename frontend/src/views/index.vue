@@ -135,10 +135,10 @@
                 <v-col>
                     <v-card>
                         <h3>성별 확진자 현황</h3>
-                        <bar-chart
+                        <pie-chart
                         :chart-data="koreaGenChartData"
                         v-if="genAgeChartLoaded">
-                        </bar-chart>
+                        </pie-chart>
                     </v-card>
                     <v-card>
                         <h3>도시별 확진자 현황</h3>
@@ -197,7 +197,11 @@
                 </v-col>
                 <v-col>
                     <v-card>
-                       
+                        <h3>국가별 확진 현황</h3>
+                        <pie-chart
+                        :chart-data="worldCounrtyChartData"
+                        v-if="worldCounrtyChartLoaded">
+                        </pie-chart>
                     </v-card>
                 </v-col>
             </v-row>
@@ -221,6 +225,7 @@
 <script>
 import LineChart from '@/components/LineChart'
 import BarChart from '@/components/BarChart'
+import PieChart from '@/components/PieChart'
 import { GChart } from 'vue-google-charts'
 
 
@@ -229,6 +234,7 @@ export default {
         LineChart,
         BarChart,
         GChart,
+        PieChart,
     },
     data(){
         return {
@@ -247,6 +253,8 @@ export default {
             genAgeChartLoaded:false,
             cityChartLoaded:false,
             worldChartLoaded:false,
+            worldCounrtyChartData:null,
+            worldCounrtyChartLoaded:false,
             
             koreaGeoChartData: [
                
@@ -320,19 +328,7 @@ export default {
        
     },
     methods:{
-        // getWorldTotal(){
-        //     axios.get('https://api.covid19api.com/world/total')
-        //     .then(({data})=>{
-        //         this.worldTotal = {
-        //             TotalConfirmed : this.numberFormat(data.TotalConfirmed),
-        //             TotalDeaths : this.numberFormat(data.TotalDeaths),
-        //             TotalRecovered : this.numberFormat(data.TotalRecovered)
-        //         }
-        //     })
-        //     .catch(err=>{
-        //         console.error(err)
-        //     })
-        // },
+       
         async getWorldDailyTotal(){
             try{
                 let { data } = await axios.get('/covid/world/daily')
@@ -358,6 +354,7 @@ export default {
                         }
                     ]
                 }
+                
                 this.worldChartLoaded = true
             }catch(e){
                 console.error(e)
@@ -369,22 +366,53 @@ export default {
                 
                 console.log(data)
 
-                let total = data[7]
+                let world = data[7]
                 
                 this.worldTotal = {
-                    TotalConfirmed : total.confirmed,
-                    TotalDeaths : total.deaths,
-                    TotalRecovered : total.recovered
+                    TotalConfirmed : world.confirmed,
+                    TotalDeaths : world.deaths,
+                    TotalRecovered : world.recovered
                 }
 
                 data = data.slice(8,223)
-                data[12].country = 'The United Kingdom'
+                
                 data.forEach(covid => {
-                    let conf = covid.confirmed.replaceAll(/,/g,'')
-                    this.worldGeoChartData.push([covid.country, parseInt(conf, 10)])
+                    let confirmed = covid.confirmed.replaceAll(/,/g,'')
+                    this.worldGeoChartData.push([covid.country, parseInt(confirmed, 10)])
                 })
                 
-                this.worldGeoChartData.push(['United States of America', 5000])
+                const otherCountryCount = data.slice(10)
+                                         .map(covid => this.stringFormat(covid.confirmed))
+                                         .reduce((acc,cur) => acc + cur)
+                data = data.slice(0,10)
+
+                this.worldCounrtyChartData = {
+                    labels: [...(data.map(covid => covid.country)), 'other'],
+                    datasets:[
+                        {
+                            label: 'Confirmed',
+                            borderColor:'rgba(255, 255, 255, 0)',
+                            backgroundColor:[
+                                '#b3290b',
+                                '#460bb3',
+                                '#4eb30b',
+                                '#0babb3',
+                                '#b3730b',
+                                '#cfc44c',
+                                '#cf4cb5',
+                                '#6e1427',
+                                '#637ed4',
+                                '#487564',
+                                '#8e9190'
+
+                            ],
+                            
+                            data: [...(data.map(covid => this.stringFormat(covid.confirmed))), otherCountryCount]
+                        }
+                    ]
+                }
+               
+                this.worldCounrtyChartLoaded = true
 
             }catch(e){
                 console.error(e)
@@ -525,9 +553,15 @@ export default {
                     datasets: [
                         {
                             label: '확진자',
-                            borderColor:'#03fcec',
-                            backgroundColor:'rgba(3, 252, 236, 0.2)',
-                            pointBorderColor:'rgba(255, 255, 255, 0)',
+                            borderColor:[
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                            ],
+                            backgroundColor:[
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                            ],
+                            
                             borderWidth: 2,
                             data: genData.map(genAge => genAge.confCase)
                         },
@@ -571,6 +605,9 @@ export default {
         numberFormat(input){
             return input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         },
+        stringFormat(input){
+            return parseInt(input.replaceAll(/,/g, ''), 10)
+        }
         
             
     }

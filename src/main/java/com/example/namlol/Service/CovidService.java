@@ -60,8 +60,7 @@ public class CovidService {
         List<Map<String,String>> res = new ArrayList<>();
         Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus").get();
         Elements contents = doc.select("table#main_table_countries_today tbody tr");
-        System.out.println("========");
-        System.out.println(contents);
+
         for(Element content : contents){
             Elements elements = content.select("td");
             Map<String,String> map = new HashMap<>();
