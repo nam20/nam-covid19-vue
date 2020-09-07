@@ -1,6 +1,6 @@
 <template>
     
-        <v-container fluid > 
+        <v-container  > 
             <!-- <v-btn color="success" @click="$router.push('/home')">home</v-btn>
             <v-btn color="#2196F3" @click="$router.push('/signup')">회원가입</v-btn>
             <v-btn color="warning" @click="$router.push('/login')">로그인</v-btn>
@@ -61,24 +61,25 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col >
+                <v-col cols="12" sm="12" md="6">
                     <v-card>
                         <h3>국내 확진자수 증가추이</h3>
-                        <v-switch label="test"></v-switch>
+                        
                         <line-chart 
                         v-if="loaded"
-                        :chart-data="koreaChartData">
+                        :chart-data="koreaChartData"
+                        >
                         </line-chart>
                     </v-card>
                 </v-col>
-                <v-col>
+                <v-col cols="12" sm="12" md="6">
                     <v-card>
-                        <h3>국내 확진자 일일 신규</h3>
-                        <v-switch label="test"></v-switch>
-                        <line-chart 
-                        v-if="loaded"
-                        :chart-data="koreaDailyChartData">
-                        </line-chart>
+                        <h3>도시별 확진자 현황</h3>
+                        <bar-chart
+                        :chart-data="koreaCityChartData"
+                        v-if="cityChartLoaded">
+                        </bar-chart>
+                        
                     </v-card>
                 </v-col>
             </v-row>
@@ -112,44 +113,84 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <v-row>
-                <v-col>
+
+            <v-row justify="center">
+                <v-col cols="12" sm="12" md="8">
                     <v-card>
-                        <h3>연령대별 확진자 현황</h3>
-                        <bar-chart
-                        :chart-data="koreaAgeChartData"
-                        v-if="genAgeChartLoaded">
-                        </bar-chart>
-                    </v-card>
-                    <v-card>
-                        <h3>연령대별 치명율 현황</h3>
-                        <bar-chart
-                        :chart-data="koreaCriticalChartData"
-                        v-if="genAgeChartLoaded">
-                        </bar-chart>
+                        <h3>국내 발병 지도</h3>
+                        <GChart
+                            type="GeoChart"
+                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :data="koreaGeoChartData"
+                            :options="koreaGeoChartOptions"
+                            
+                        />
+                        
                     </v-card>
                 </v-col>
-            </v-row>
-            
-            <v-row>
-                <v-col>
+                <!-- <v-col cols="6">
                     <v-card>
+                        <GChart
+                            type="GeoChart"
+                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :data="worldGeoChartData"
+                            :options="worldGeoChartOptions"
+                           
+                        />
+                    </v-card>
+                </v-col> -->
+            </v-row>
+
+
+            <v-row>
+                <v-col cols="12" sm="12" md="6">
+                    <v-card>
+
+                        <h3>국내 확진자 일일 신규 증가추이</h3>
+                        
+                        <line-chart 
+                        v-if="loaded"
+                        :chart-data="koreaDailyChartData">
+                        </line-chart>
+
+                    </v-card>
+                    
+                </v-col>
+                <v-col cols="12" sm="12" md="6">
+                   <v-card>
                         <h3>성별 확진자 현황</h3>
                         <pie-chart
                         :chart-data="koreaGenChartData"
                         v-if="genAgeChartLoaded">
                         </pie-chart>
-                    </v-card>
-                    <v-card>
-                        <h3>도시별 확진자 현황</h3>
-                        <bar-chart
-                        :chart-data="koreaCityChartData"
-                        v-if="cityChartLoaded">
-                        </bar-chart>
-                    </v-card>
+                   </v-card>
                 </v-col>
             </v-row>
             <v-row>
+                <v-col cols="12" sm="12" md="6">
+                    <v-card>
+                        <h3>연령대별 확진자 현황</h3>
+                        <polar-area-chart
+                        :chart-data="koreaAgeChartData"
+                        v-if="genAgeChartLoaded">
+                        </polar-area-chart>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" sm="12" md="6">
+                    
+                    <v-card>
+                        <h3>연령대별 치명율 현황</h3>
+                        <radar-chart
+                        :chart-data="koreaCriticalChartData"
+                        v-if="genAgeChartLoaded">
+                        </radar-chart>
+                    </v-card>
+                    
+                </v-col>
+            </v-row>
+            
+            
+            <!-- <v-row>
                 <v-col cols="12"  md="8" lg="9">
                     <v-card >
                         <GChart
@@ -184,30 +225,12 @@
                     </v-card>
                 </v-col>
                 
-            </v-row>
-            <v-row>
-                <v-col cols="12" >
-                    <v-card>
-                        <h3>전세계 증가추이</h3>
-                        <line-chart
-                        :chart-data="worldChartData"
-                        v-if="worldChartLoaded">
-                        </line-chart>
-                    </v-card>
-                </v-col>
-                <v-col>
-                    <v-card>
-                        <h3>국가별 확진 현황</h3>
-                        <pie-chart
-                        :chart-data="worldCounrtyChartData"
-                        v-if="worldCounrtyChartLoaded">
-                        </pie-chart>
-                    </v-card>
-                </v-col>
-            </v-row>
+            </v-row> -->
             <v-row>
                 <v-col>
+                    
                     <v-card>
+                        <h3>전세계 확진 발병 지도</h3>
                         <GChart
                             type="GeoChart"
                             :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
@@ -218,6 +241,101 @@
                     </v-card>
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col cols="12" sm="12" md="6" >
+                    <v-card>
+                        <h3>전세계 증가추이</h3>
+                        <line-chart
+                        :chart-data="worldChartData"
+                        v-if="worldChartLoaded">
+                        </line-chart>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" sm="12" md="6">
+                    <v-card>
+                        <h3>국가별 확진 현황</h3>
+                        <pie-chart
+                        :chart-data="worldCounrtyChartData"
+                        v-if="worldCounrtyChartLoaded">
+                        </pie-chart>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row justify="center">
+                 <v-col cols="12" sm="12" md="6">
+                    <v-card >
+                        <v-carousel
+                            cycle
+                            
+                            hide-delimiter-background
+                            show-arrows-on-hover
+                            height="auto"
+                        >
+                            <v-carousel-item
+                            v-for="slide in slides"
+                            :key="slide"
+                            
+                        
+                            >
+                           
+                            <v-img :src="slide.src" contain />
+                               
+                            </v-carousel-item>
+                        </v-carousel>
+                    </v-card>
+                </v-col>
+            </v-row>
+            
+            <v-row justify="center">
+                <v-col cols="8">
+                    <v-card>
+                        <h3>전염병 통계 비교</h3>
+                        <v-simple-table>
+                            <thead>
+                                <tr>
+                                    <th>병명</th>
+                                    <th>코로나 19</th>
+                                    <th>MERS</th>
+                                    <th>SARS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>발생연도</td>
+                                    <td>2019</td>
+                                    <td>2012</td>
+                                    <td>2003</td>
+                                </tr>
+                                <tr>
+                                    <td>확진자</td>
+                                    <td>{{worldTotal.TotalConfirmed}}</td>
+                                    <td>2,494</td>
+                                    <td>8,096</td>
+                                </tr>
+                                <tr>
+                                    <td>사망자</td>
+                                    <td>{{worldTotal.TotalDeaths}}</td>
+                                    <td>858</td>
+                                    <td>774</td>
+                                </tr>
+                                <tr>
+                                    <td>치명율</td>
+                                    <td>{{worldTotal.TotalCritical}}%</td>
+                                    <td>약 10%</td>
+                                    <td>약 35%</td>
+                                </tr>
+                                <tr>
+                                    <td>영향국가</td>
+                                    <td>214</td>
+                                    <td>27</td>
+                                    <td>26</td>
+                                </tr>
+                            </tbody>
+                        </v-simple-table>
+                    </v-card>
+                </v-col>
+               
+            </v-row>
         </v-container>
         
 </template>
@@ -227,7 +345,8 @@ import LineChart from '@/components/LineChart'
 import BarChart from '@/components/BarChart'
 import PieChart from '@/components/PieChart'
 import { GChart } from 'vue-google-charts'
-
+import PolarAreaChart from '@/components/PolarAreaChart'
+import RadarChart from '@/components/RadarChart'
 
 export default {
     components:{
@@ -235,6 +354,8 @@ export default {
         BarChart,
         GChart,
         PieChart,
+        PolarAreaChart,
+        RadarChart,
     },
     data(){
         return {
@@ -371,7 +492,8 @@ export default {
                 this.worldTotal = {
                     TotalConfirmed : world.confirmed,
                     TotalDeaths : world.deaths,
-                    TotalRecovered : world.recovered
+                    TotalRecovered : world.recovered,
+                    TotalCritical: (this.stringFormat(world.deaths) / this.stringFormat(world.confirmed) * 100 ).toFixed(1)
                 }
 
                 data = data.slice(8,223)
@@ -519,29 +641,66 @@ export default {
                 let age = ageData.map(genAge => genAge.gubun)
                
                 this.koreaAgeChartData = {
-                    labels : age,
+                    labels: age,
                     datasets:[
                         {
-                            label: '확진자',
-                            borderColor:'#03fcec',
-                            backgroundColor:'rgba(3, 252, 236, 0.2)',
-                            pointBorderColor:'rgba(255, 255, 255, 0)',
-                            borderWidth: 2,
-                            data: ageData.map(genAge => genAge.confCase)
-                        },
-                        
+                            label: '확진',
+                            borderWidth: 1,
+                            backgroundColor:[
+                                'rgba(240, 12, 12, 0.2)',
+                                'rgba(237, 226, 14, 0.2)',
+                                'rgba(29, 237, 14, 0.2)',
+                                'rgba(237, 159, 14, 0.2)',
+                                'rgba(14, 237, 237, 0.2)',
+                                'rgba(14, 44, 237, 0.2)',
+                                'rgba(189, 235, 52, 0.2)',
+                                'rgba(171, 50, 165, 0.2)',
+                                'rgba(91, 168, 35, 0.2)',
+                            ],
+                            borderColor:[
+                                'rgba(240, 12, 12, 1)',
+                                'rgba(237, 226, 14, 1)',
+                                'rgba(29, 237, 14, 1)',
+                                'rgba(237, 159, 14, 1)',
+                                'rgba(14, 237, 237, 1)',
+                                'rgba(14, 44, 237, 1)',
+                                'rgba(189, 235, 52, 1)',
+                                'rgba(171, 50, 165, 1)',
+                                'rgba(91, 168, 35, 1)',
+                            ],
+                            data : ageData.map(genAge => genAge.confCase)
+                        }
                     ]
                 }
+
+
+
+
+
+                // this.koreaAgeChartData = {
+                //     labels : age,
+                //     datasets:[
+                //         {
+                //             label: '확진자',
+                //             borderColor:'#03fcec',
+                //             backgroundColor:'rgba(3, 252, 236, 0.2)',
+                //             pointBorderColor:'rgba(255, 255, 255, 0)',
+                //             borderWidth: 2,
+                //             data: ageData.map(genAge => genAge.confCase)
+                //         },
+                        
+                //     ]
+                // }
 
                 this.koreaCriticalChartData = {
                     labels : age,
                     datasets:[
                         {
                             label: '치명율 (사망자/확진자)',
-                            borderColor:'#03fcec',
-                            backgroundColor:'rgba(3, 252, 236, 0.2)',
-                            pointBorderColor:'rgba(255, 255, 255, 0)',
-                            borderWidth: 2,
+                            
+                            backgroundColor:'rgba(54, 162, 235, 0.2)',
+                            
+                            borderWidth: 1,
                             data: ageData.map(genAge => genAge.criticalRate)
                         },
                         
