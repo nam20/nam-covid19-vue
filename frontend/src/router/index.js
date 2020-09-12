@@ -20,31 +20,8 @@ const routes = [
     meta:{authRequired:true}
 
   },
-  {
-    path: '/signup',
-    component: () => import('../views/signup.vue')
-  },
-  {
-    path: '/login',
-    component: () => import('../components/Login.vue')
-  },
-  {
-    path: '/nav',
-    component: () => import('../components/NavDrawer.vue')
-  },
-  {
-    path:'/postForm',
-    component: () => import('../components/PostForm.vue')
-  },
-  {
-    path:'/postList',
-    component: () => import('../views/PostList.vue')
-  },
-  {
-    path: '/testForm',
-    component: () => import('../components/testForm.vue'),
-    meta:{authRequired:true}
-  },
+  
+ 
   {
     path: '/chartjs',
     name: 'VueChartJS',
@@ -59,14 +36,14 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach(async (to, from, next)=>{
-  if(to.matched.some(record => !record.meta.authRequired) || localStorage.getItem('token')){
-    return next()
-  }
+// router.beforeEach(async (to, from, next)=>{
+//   if(to.matched.some(record => !record.meta.authRequired) || localStorage.getItem('token')){
+//     return next()
+//   }
 
-  alert('로그인이 필요합니다')
-  //return next
-})
+//   alert('로그인이 필요합니다')
+//   //return next
+// })
 
 
 export default router;

@@ -59,7 +59,9 @@ public class CovidService {
     public List<Map<String,String>> worldOmeterCrawling() throws IOException{
         List<Map<String,String>> res = new ArrayList<>();
         Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus").get();
-        Elements contents = doc.select("table#main_table_countries_today tbody tr");
+        Elements contents = doc.select("table#main_table_countries_today tbody tr:nth-child(n+8)");
+        Element yesterdayContent = doc.select("table#main_table_countries_yesterday tbody tr:nth-child(8)").first();
+        contents.add(0, yesterdayContent);
 
         for(Element content : contents){
             Elements elements = content.select("td");
@@ -72,6 +74,21 @@ public class CovidService {
         }
         return res;
     }
+
+    public List<Map<String,String>> youtubeCrawling() throws IOException{
+        List<Map<String,String>> res = new ArrayList<>();
+        Document doc = Jsoup.connect("https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98")
+
+                .get();
+
+        Elements contents = doc.select("div#container");
+        System.out.println("====");
+        System.out.println(contents);
+
+        return res;
+    }
+
+
 
 
     public String koreaCase(String serviceCase) throws IOException{

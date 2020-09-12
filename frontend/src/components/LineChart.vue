@@ -41,7 +41,7 @@ export default {
                     }],
                     xAxes: [ {
                         gridLines: {
-                            display: true
+                            display: false
                         }
                     }]
                 },

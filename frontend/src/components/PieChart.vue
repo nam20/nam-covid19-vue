@@ -1,10 +1,12 @@
 
 
 <script>
-import { Pie } from 'vue-chartjs'
+import { Pie, mixins } from 'vue-chartjs'
+const { reactiveProp } = mixins
 export default {
     extends: Pie,
-    props:['chartData'],
+    mixins: [reactiveProp],
+    // props:['chartData'],
     data(){
         return {
             options: {

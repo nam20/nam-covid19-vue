@@ -23,13 +23,13 @@
                 <bubble-chart></bubble-chart>
             </v-card>
         </v-col>
-        <!-- <v-col>
+        <v-col>
             <v-card>
                 <h3>Reactive Chart</h3>
                 <reactive :chart-data="datacollection"></reactive>
                 <v-btn color="success" @click="fillData()">Randomize</v-btn>
             </v-card>
-        </v-col> -->
+        </v-col>
         
        
     </v-container>
@@ -60,7 +60,7 @@ export default {
     },
     created () {
         //anytime the vue instance is created, call the fillData() function.
-        //this.fillData()
+        this.fillData()
         this.corona()
     },
     methods: {
