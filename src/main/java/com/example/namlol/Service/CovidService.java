@@ -4,6 +4,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
@@ -38,7 +43,7 @@ public class CovidService {
             res.add(map);
         }
         return res;
-        //System.out.println(contents);git
+
     }
 
     public List<Map<String,String>> googleClawling() throws IOException{
@@ -49,7 +54,9 @@ public class CovidService {
             Element element = contents.get(i).select("article h3 a").get(0);
             Map<String,String> map = new HashMap<>();
             map.put("title",element.text());
-            map.put("href",element.attr("href"));
+            StringBuilder sb = new StringBuilder("https://news.google.com");
+            sb.append(element.attr("href").substring(1));
+            map.put("href",sb.toString());
             res.add(map);
         }
 
@@ -59,9 +66,10 @@ public class CovidService {
     public List<Map<String,String>> worldOmeterCrawling() throws IOException{
         List<Map<String,String>> res = new ArrayList<>();
         Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus").get();
-        Elements contents = doc.select("table#main_table_countries_today tbody tr:nth-child(n+8)");
-        Element yesterdayContent = doc.select("table#main_table_countries_yesterday tbody tr:nth-child(8)").first();
+        Elements contents = doc.select("table#main_table_countries_yesterday tbody tr:nth-child(n+8)");
+        Element yesterdayContent = doc.select("table#main_table_countries_yesterday2 tbody tr:nth-child(8)").first();
         contents.add(0, yesterdayContent);
+        //System.out.println(yesterdayContent);
 
         for(Element content : contents){
             Elements elements = content.select("td");
@@ -75,6 +83,30 @@ public class CovidService {
         return res;
     }
 
+    private WebDriver driver;
+    private WebElement element;
+    private String url;
+
+    public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
+    public static String WEB_DRIVER_PATH = "C:/chromedriver.exe";
+    public static String TEST_URL = "https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98";
+
+    public void seleniumTest(){
+        System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("ignoreProtectedModeSettings", true);
+        driver = new ChromeDriver(options);
+        try{
+            driver.get(TEST_URL);
+            element =  driver.findElement(By.xpath("//*[@id='dismissable']"));
+            System.out.println(driver);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
     public List<Map<String,String>> youtubeCrawling() throws IOException{
         List<Map<String,String>> res = new ArrayList<>();
         Document doc = Jsoup.connect("https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98")
@@ -83,9 +115,22 @@ public class CovidService {
 
         Elements contents = doc.select("div#container");
         System.out.println("====");
-        System.out.println(contents);
+        System.out.println(doc);
 
         return res;
+    }
+
+    public String youtubeTestCrawling() throws IOException{
+        List<Map<String,String>> res = new ArrayList<>();
+        Document doc = Jsoup.connect("https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98")
+                .timeout(100000)
+                .get();
+
+        Elements contents = doc.select("body");
+        System.out.println("====");
+        System.out.println(contents);
+
+        return doc.toString();
     }
 
 

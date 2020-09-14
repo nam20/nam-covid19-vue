@@ -1,6 +1,8 @@
 package com.example.namlol.Controller;
 
 import com.example.namlol.Service.CovidService;
+import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -12,8 +14,9 @@ import java.util.Map;
 @RequestMapping("/covid")
 public class CovidController {
 
-    CovidService covidService;
+    private final CovidService covidService;
 
+    @Autowired
     public CovidController(CovidService covidService) {
         this.covidService = covidService;
     }
@@ -41,6 +44,11 @@ public class CovidController {
     @GetMapping("/world")
     public List<Map<String,String>> worldOmeter() throws IOException{
         return covidService.worldOmeterCrawling();
+    }
+
+    @GetMapping("/test")
+    public String test() throws IOException{
+        return covidService.youtubeTestCrawling();
     }
 
 }

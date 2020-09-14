@@ -1,17 +1,17 @@
 <template>
   <v-card>
         <v-card
-        outlined
+        flat
         tile
-        color="rgba(0, 0, 0, 0.04)">
+        color="#f0f2f7">
                 <v-card-subtitle>
-                    <h3> 
+                    <h3 style="color: #4678eb;"> 
                         <slot name="title"></slot> 
                     <h3>
                 </v-card-subtitle>
         </v-card>
         <v-card
-        outlined
+        flat
         tile
         :height="cardHeight">
             <slot name="body"></slot>
@@ -27,6 +27,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 
 </style>

@@ -1,6 +1,6 @@
 <template>
     
-        <v-container  > 
+        <v-container fluid style="background-color: #f7f9fc"> 
             <!-- <v-btn color="success" @click="$router.push('/home')">home</v-btn>
             <v-btn color="#2196F3" @click="$router.push('/signup')">회원가입</v-btn>
             <v-btn color="warning" @click="$router.push('/login')">로그인</v-btn>
@@ -8,11 +8,12 @@
             <v-btn @click="$router.push('/postForm')">에디터</v-btn>
             <v-btn @click="$router.push('/postList')">게시판</v-btn> -->
             <!-- <v-btn @click="$router.push('/chartjs')">뷰차트 테스트</v-btn> -->
-            <v-row justify="center" class="mb-5">
-                <v-col cols="12" sm="12" md="8">
+            
+            <v-row justify="center" id="covidStatus"> 
+                <v-col cols="12" sm="12" md="6">
                     <v-card>
                         
-                        <v-card-title class="justify-center pt-6">
+                        <v-card-title class="justify-center">
                             <h3>국내 현황</h3>
                         </v-card-title>
                         <v-row>
@@ -37,6 +38,10 @@
                             </v-col>
                         </v-row>
 
+                    </v-card>
+                </v-col>
+                <v-col cols="12" sm="12" md="6">
+                    <v-card>
                         <v-card-title class="justify-center">
                             <h3>세계 현황</h3>
                         </v-card-title>
@@ -65,7 +70,8 @@
                 </v-col>
                 
             </v-row>
-            <v-row>
+            
+            <v-row id="koreaStatus">
                 <v-col cols="12" sm="12" md="6">
                     <chart-card>
                         <template v-slot:title>
@@ -102,18 +108,29 @@
             </v-row>
 
             
-            <v-row>
+            <v-row id="worldKoreaNews">
                 <v-col cols="12" xs="12" md="6" >
                     <chart-card>
                         <template v-slot:title>
                             국내 주요 뉴스
                         </template>
                         <template v-slot:body>
-                            <v-card-text v-for="news in naverNews" :key="news">
+                            <v-simple-table >
+                                <tbody>
+                                    <tr v-for="news in naverNews" :key="news">
+                                        <td>
+                                            <h4>
+                                                <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                            <!-- <v-card-text v-for="news in naverNews" :key="news">
                                 <h4>
                                     <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
                                 </h4>
-                            </v-card-text>
+                            </v-card-text> -->
                         </template>
                     </chart-card>
                    
@@ -125,11 +142,22 @@
                             해외 주요 뉴스
                         </template>
                         <template v-slot:body>
-                            <v-card-text v-for="news in googleNews" :key="news">
+                            <v-simple-table>
+                                <tbody>
+                                    <tr v-for="news in googleNews" :key="news">
+                                        <td>
+                                            <h4>
+                                                <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                            <!-- <v-card-text v-for="news in googleNews" :key="news">
                                 <h4>
                                     <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
                                 </h4>
-                            </v-card-text>
+                            </v-card-text> -->
                         </template>
                     </chart-card>
                    
@@ -153,7 +181,7 @@
                                 borderless 
                                 color="rgba(54, 162, 235, 1)" 
                                 v-model="koreaCityStatus" 
-                                class="mt-2">
+                                class="my-3">
                                     <v-btn>
                                         확진자
                                     </v-btn>
@@ -186,7 +214,7 @@
                                 borderless 
                                 color="rgba(54, 162, 235, 1)" 
                                 v-model="koreaGenStatus" 
-                                class="mt-2">
+                                class="my-3">
                                     <v-btn>
                                         확진자
                                     </v-btn>
@@ -228,16 +256,11 @@
                             </radar-chart>
                         </template>
                     </chart-card>
-                    
-          
-                    
                 </v-col>
             </v-row>
             
             
-            
-            
-            <v-row>
+            <v-row id="worldStatus">
                 <v-col cols="12" sm="12" md="6" >
                     <chart-card>
                         <template v-slot:title>
@@ -246,50 +269,14 @@
                         <template v-slot:body>
                             <line-chart 
                             v-if="koreaDailyTotalLoaded"
-                            :chart-data="koreaDailyChartData">
+                            :chart-data="koreaDailyChartData"
+                            :height="472">
                             </line-chart>
                         </template>
                     </chart-card>
                 
                 </v-col>
                 <v-col cols="12" sm="12" md="6">
-                    <chart-card>
-                        <template v-slot:title>
-                            전세계 확진자 증가추이
-                        </template>
-                        <template v-slot:body>
-                            <line-chart
-                            :chart-data="worldDailyTotalChartData"
-                            v-if="worldChartLoaded">
-                            </line-chart>
-                        </template>
-                    </chart-card>
-               
-                </v-col>
-            </v-row>
-
-            <v-row>
-                <v-col>
-                    <chart-card>
-                        <template v-slot:title>
-                            전세계 코로나 발병 지도
-                        </template>
-                        <template v-slot:body>
-                            <GChart
-                            type="GeoChart"
-                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
-                            :data="worldGeoChartData"
-                            :options="worldGeoChartOptions"
-                            />
-                        </template>
-                    </chart-card>
-                  
-                </v-col>
-            </v-row>
-
-            <v-row >
-                
-                <v-col>
                     <chart-card>
                         <template v-slot:title>
                             국가별 발생 분포
@@ -304,7 +291,7 @@
                                 borderless 
                                 color="rgba(54, 162, 235, 1)" 
                                 v-model="worldCountryStatus" 
-                                class="mt-2">
+                                class="my-3">
                                     <v-btn>
                                         확진자
                                     </v-btn>
@@ -319,105 +306,188 @@
                            
                         </template>
                     </chart-card>
-                
+               
                 </v-col>
-                <v-col >
-                    <v-card >
-                        <chart-card >
-                            <template v-slot:title>
-                                전염병 통계 비교
-                            </template>
-                            <template v-slot:body>
-                                <v-simple-table class="mt-5 mb-13" >
-                                    <thead>
-                                        <tr>
-                                            <th><h3>병명</h3></th>
-                                            <th><h2>코로나 19</h2> </th>
-                                            <th><h2>MERS</h2> </th>
-                                            <th><h2>SARS</h2> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>발생연도</td>
-                                            <td class="covid">2019</td>
-                                            <td>2012</td>
-                                            <td>2003</td>
-                                        </tr>
-                                        <tr>
-                                            <td>확진자</td>
-                                            <td class="covid">{{worldTotal.totalConfirmed}}</td>
-                                            <td>2,494</td>
-                                            <td>8,096</td>
-                                        </tr>
-                                        <tr>
-                                            <td>한국 확진자</td>
-                                            <td class="covid">{{koreaTotal.totalConfirmed}}</td>
-                                            <td>186</td>
-                                            <td>3</td>
-                                        </tr>
-                                        <tr>
-                                            <td>사망자</td>
-                                            <td class="covid">{{worldTotal.totalDeaths}}</td>
-                                            <td>858</td>
-                                            <td>774</td>
-                                        </tr>
-                                        <tr>
-                                            <td>한국 사망자</td>
-                                            <td class="covid">{{koreaTotal.totalDeaths}}</td>
-                                            <td>38</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>치명율</td>
-                                            <td class="covid">{{worldTotal.totalCritical}}%</td>
-                                            <td>34.4%</td>
-                                            <td>9.6%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>영향국가</td>
-                                            <td class="covid">214</td>
-                                            <td>27</td>
-                                            <td>26</td>
-                                        </tr>
-                                    </tbody>
-                                </v-simple-table>
-                            </template>
-                        </chart-card>
-                        
+            </v-row>
+
+            <!-- <v-row>
+                <v-col>
+                    
+                  
+                </v-col>
+            </v-row> -->
+
+            <v-row >
+                <v-col cols="12" md="6">
+                    <!-- <chart-card>
+                        <template v-slot:title>
+                            전세계 코로나 발병 지도
+                        </template>
+                        <template v-slot:body>
+                            <GChart
+                            type="GeoChart"
+                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :data="worldGeoChartData"
+                            :options="worldGeoChartOptions"
+                            />
+                        </template>
+                    </chart-card> -->
+                </v-col>
+                <v-col cols="12" md="6">
+                    <chart-card>
+                        <template v-slot:title>
+                            전세계 확진자 증가추이
+                        </template>
+                        <template v-slot:body>
+                            <line-chart
+                            :chart-data="worldDailyTotalChartData"
+                            v-if="worldChartLoaded"
+                            :height="550">
+                            </line-chart>
+                        </template>
+                    </chart-card>
                 </v-col>
             </v-row>
             
-            <v-row  >
-                 <v-col cols="12" sm="12" md="6">
-                        <chart-card>
-                            <template v-slot:title>
-                                예방 행동 수칙
-                            </template>
-                            <template v-slot:body>
-                                <v-carousel
-                                cycle
-                                hide-delimiter-background
-                                show-arrows-on-hover
-                                height="800"
-                                style="margin: 10px 0 10px"
+           
+            <v-row id="covidPrevention">
+                <v-col cols="12" sm="12" md="6">
+                    <chart-card>
+                        <template v-slot:title>
+                            예방 행동 수칙
+                        </template>
+                        <template v-slot:body>
+                            <v-carousel
+                            cycle
+                            hide-delimiter-background
+                            show-arrows-on-hover
+                            height="800"
+                            style="margin: 10px 0 10px"
+                            >
+                                <v-carousel-item
+                                v-for="slide in slides"
+                                :key="slide"
                                 >
-                                    <v-carousel-item
-                                    v-for="slide in slides"
-                                    :key="slide"
-                                    >
+                            
+                                <v-img :src="slide.src" 
+                                max-height="800" 
+                                contain/>
                                 
-                                    <v-img :src="slide.src" 
-                                    max-height="800" 
-                                    contain/>
+                                </v-carousel-item>
+                            </v-carousel>
+                        </template>
+                    </chart-card>
+                </v-col>
+                <v-col cols="12" sm="12" md="6">
+                    <v-row>
+                        <v-col cols="12" class="pt-0">
+                            <chart-card >
+                                <template v-slot:title>
+                                    전염병 통계 비교
+                                </template>
+                                <template v-slot:body>
+                                    <v-simple-table class="my-5" >
+                                        <thead>
+                                            <tr>
+                                                <th><h3>병명</h3></th>
+                                                <th><h2>코로나 19</h2> </th>
+                                                <th><h2>MERS</h2> </th>
+                                                <th><h2>SARS</h2> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>발생연도</td>
+                                                <td class="covid">2019</td>
+                                                <td>2012</td>
+                                                <td>2003</td>
+                                            </tr>
+                                            <tr>
+                                                <td>확진자</td>
+                                                <td class="covid">{{worldTotal.totalConfirmed}}</td>
+                                                <td>2,494</td>
+                                                <td>8,096</td>
+                                            </tr>
+                                            <tr>
+                                                <td>한국 확진자</td>
+                                                <td class="covid">{{koreaTotal.totalConfirmed}}</td>
+                                                <td>186</td>
+                                                <td>3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>사망자</td>
+                                                <td class="covid">{{worldTotal.totalDeaths}}</td>
+                                                <td>858</td>
+                                                <td>774</td>
+                                            </tr>
+                                            <tr>
+                                                <td>한국 사망자</td>
+                                                <td class="covid">{{koreaTotal.totalDeaths}}</td>
+                                                <td>38</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>치명율</td>
+                                                <td class="covid">{{worldTotal.totalCritical}}%</td>
+                                                <td>34.4%</td>
+                                                <td>9.6%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>영향국가</td>
+                                                <td class="covid">214</td>
+                                                <td>27</td>
+                                                <td>26</td>
+                                            </tr>
+                                        </tbody>
+                                    </v-simple-table>
+                                </template>
+                            </chart-card>
+                        </v-col>
+                        <v-col cols="12" id="cityConfirmed">
+                            <chart-card>
+                                <template v-slot:title>
+                                    확진자 동향
+                                </template>
+                                <template v-slot:body>
+                                    <v-row justify="center">
+                                        <v-col cols="10">
+                                            <v-btn 
+                                            tile outlined color="#4678eb" 
+                                            class="ma-2"
+                                            v-for="city in cityCovidPages" :key="city" :href="city[1]" target="_blank">
+                                                {{city[0]}}
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
                                     
-                                    </v-carousel-item>
-                                </v-carousel>
-                            </template>
-                        </chart-card>
-                       
-                        
+                                    
+
+                                </template>
+                            </chart-card>
+                        </v-col>
+                    </v-row>
                     
+                    
+                </v-col>
+            </v-row>
+           
+            <v-row>
+                <v-col>
+                    <chart-card>
+                        <template v-slot:title>
+                            유튜브 관련 영상
+                        </template>
+                        <template v-slot:body>
+                            
+                        </template>
+                    </chart-card>
+                </v-col>
+                <v-col>
+                    <chart-card>
+                        <template v-slot:title>
+                            데이터 출처
+                        </template>
+                    </chart-card>
                 </v-col>
             </v-row>
             
@@ -521,7 +591,8 @@ export default {
                 resolution: 'countries',
                 colorAxis:{
                     minValue: 0,  colors: ['#fffcfc', '#b00b0b']
-                }
+                },
+                height:550
             },
             slides:[
                 {
@@ -582,6 +653,29 @@ export default {
                 'rgba(72, 117, 100, 0.2)',
                 'rgba(142, 145, 144, 0.2)'
             ],
+
+            cityCovidPages:[
+                ['서울', 'https://www.seoul.go.kr/coronaV/coronaStatus.do'],
+                ['부산', 'http://www.busan.go.kr/covid19/Corona19.do'],
+                ['대구', 'http://covid19.daegu.go.kr/00936598.html'],
+                ['인천', 'https://www.incheon.go.kr/health/HE020409'],
+                ['광주', 'https://www.gwangju.go.kr/c19/c19/contentsView.do?pageId=coronagj2'],
+                ['대전', 'https://www.daejeon.go.kr/corona19/index.do?menuId=0002'],
+                ['울산', 'http://www.ulsan.go.kr/corona.jsp'],
+                ['세종', 'https://www.sejong.go.kr/bbs/R3391/list.do'],
+                ['경기', 'https://www.gg.go.kr/bbs/board.do?bsIdx=722&menuId=2903#page=1'],
+                ['강원', 'https://www.provin.gangwon.kr/covid-19.html'],
+                ['충북', 'https://www1.chungbuk.go.kr/covid-19/index.do'],
+                ['충남', 'http://www.chungnam.go.kr/coronaStatus.do'],
+                ['전북', 'https://www.jeonbuk.go.kr/board/list.jeonbuk?boardId=BBS_0000107&menuCd=DOM_000000110006000000&contentsSid=1224&cpath='],
+                ['전남', 'https://www.jeonnam.go.kr/coronaMainPage.do'],
+                ['경북', 'http://gb.go.kr/corona_main.htm'],
+                ['경남', 'http://xn--19-q81ii1knc140d892b.kr/main/main.do'],
+                ['제주', 'https://www.jeju.go.kr/wel/healthCare/corona/coronaNotice.htm']
+
+
+            ]
+
 
             
         }
@@ -654,13 +748,13 @@ export default {
                 const todayWorld = data[1]
                 console.log(data)
                 this.worldTotal = {
-                    totalConfirmed : this.numberFormat(todayWorld.confirmed) ,
-                    totalDeaths : this.numberFormat(todayWorld.deaths),
-                    totalRecovered : this.numberFormat(todayWorld.recovered),
+                    totalConfirmed : this.numberCommas(todayWorld.confirmed) ,
+                    totalDeaths : this.numberCommas(todayWorld.deaths),
+                    totalRecovered : this.numberCommas(todayWorld.recovered),
                     totalCritical: (todayWorld.deaths / todayWorld.confirmed * 100 ).toFixed(1),
-                    newConfirmed : this.numberFormat(todayWorld.confirmed - yesterdayWorld.confirmed),
-                    newDeaths: this.numberFormat(todayWorld.deaths - yesterdayWorld.deaths),
-                    newRecovered : this.numberFormat(todayWorld.recovered - yesterdayWorld.recovered)
+                    newConfirmed : this.numberCommas(todayWorld.confirmed - yesterdayWorld.confirmed),
+                    newDeaths: this.numberCommas(todayWorld.deaths - yesterdayWorld.deaths),
+                    newRecovered : this.numberCommas(todayWorld.recovered - yesterdayWorld.recovered)
 
                 }
 
@@ -734,13 +828,13 @@ export default {
                 let deaths = data.map(covid => covid.deathCnt)
 
                 this.koreaTotal = {
-                    totalConfirmed : this.numberFormat(confirmed[confirmed.length-1]),
-                    totalDeaths : this.numberFormat(deaths[deaths.length-1]),
-                    totalRecovered : this.numberFormat(recovered[recovered.length-1]),
-                    totalCritical: this.numberFormat((deaths[deaths.length-1] / confirmed[confirmed.length-1] * 100).toFixed(1)),
-                    newConfirmed : this.numberFormat(confirmed[confirmed.length-1] - confirmed[confirmed.length-2]),
-                    newDeaths : this.numberFormat(deaths[deaths.length-1] - deaths[deaths.length-2]),
-                    newRecovered : this.numberFormat(recovered[recovered.length-1] - recovered[recovered.length-2])
+                    totalConfirmed : this.numberCommas(confirmed[confirmed.length-1]),
+                    totalDeaths : this.numberCommas(deaths[deaths.length-1]),
+                    totalRecovered : this.numberCommas(recovered[recovered.length-1]),
+                    totalCritical: this.numberCommas((deaths[deaths.length-1] / confirmed[confirmed.length-1] * 100).toFixed(1)),
+                    newConfirmed : this.numberCommas(confirmed[confirmed.length-1] - confirmed[confirmed.length-2]),
+                    newDeaths : this.numberCommas(deaths[deaths.length-1] - deaths[deaths.length-2]),
+                    newRecovered : this.numberCommas(recovered[recovered.length-1] - recovered[recovered.length-2])
                 }
 
                 this.koreaDailyTotalChartData = {
@@ -812,6 +906,7 @@ export default {
         async googleCrawling(){
             try{
                 let { data } = await axios.get('/covid/news/google')
+                console.log(data) 
                 this.googleNews = data
             }catch(e){
                 console.error(e)
@@ -978,7 +1073,7 @@ export default {
                 console.error(e)
             }
         },
-        numberFormat(input){
+        numberCommas(input){
             return input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         },
         stringFormat(input){
@@ -1021,4 +1116,5 @@ export default {
 .col .recovered {
     color: rgb(34, 182, 23);
 }
+
 </style>
