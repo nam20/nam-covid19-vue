@@ -4,14 +4,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,9 +24,15 @@ public class CovidService {
     private static String GEN_AGE_SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19GenAgeCaseInfJson";
     private static String CITY_SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson";
     private static String DAY_SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson";
-    private static String SERVICE_KEY = "eVRqXM%2Fkti1fL%2Bpq9ZyX%2Bihum64%2FnUDIKxXpKi2mQKkTdryJ%2FoEA3VutB3uo397Fghxz0vGULF%2F2YDUlj74B5w%3D%3D";
+    private static String YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 
-    public List<Map<String,String>> naverClawling() throws IOException {
+    @Value("${covid.korea.service.key}")
+    private String SERVICE_KEY;
+
+    @Value("${youtube.api.key}")
+    private String YOUTUBE_API_KEY;
+
+    public List<Map<String,String>> naverCrawling() throws IOException {
 
         Document doc = Jsoup.connect(NAVER_CRAWLING_URL).get();
         Elements contents = doc.select("div ul li dl dt a");
@@ -46,7 +47,7 @@ public class CovidService {
 
     }
 
-    public List<Map<String,String>> googleClawling() throws IOException{
+    public List<Map<String,String>> googleCrawling() throws IOException{
         Document doc = Jsoup.connect(GOOGLE_CRAWLING_URL).get();
         Elements contents = doc.select("div.DBQmFf div.xrnccd");
         List<Map<String,String>> res = new ArrayList<>();
@@ -83,58 +84,18 @@ public class CovidService {
         return res;
     }
 
-    private WebDriver driver;
-    private WebElement element;
-    private String url;
+    public String youtubeSearch() throws IOException{
+        StringBuilder urlBuilder =  new StringBuilder(YOUTUBE_SEARCH_URL); /*URL*/
 
-    public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static String WEB_DRIVER_PATH = "C:/chromedriver.exe";
-    public static String TEST_URL = "https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98";
+        urlBuilder.append("?" + URLEncoder.encode("key","UTF-8") + "=" + YOUTUBE_API_KEY);
+        urlBuilder.append("&" + URLEncoder.encode("part","UTF-8") + "=" + URLEncoder.encode("snippet","UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("maxResults","UTF-8") + "=" + URLEncoder.encode("3","UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("q","UTF-8") + "=" + URLEncoder.encode("코로나","UTF-8"));
 
-    public void seleniumTest(){
-        System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("ignoreProtectedModeSettings", true);
-        driver = new ChromeDriver(options);
-        try{
-            driver.get(TEST_URL);
-            element =  driver.findElement(By.xpath("//*[@id='dismissable']"));
-            System.out.println(driver);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        URL url = new URL(urlBuilder.toString());
+
+        return httpApiReq(url);
     }
-
-
-
-    public List<Map<String,String>> youtubeCrawling() throws IOException{
-        List<Map<String,String>> res = new ArrayList<>();
-        Document doc = Jsoup.connect("https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98")
-
-                .get();
-
-        Elements contents = doc.select("div#container");
-        System.out.println("====");
-        System.out.println(doc);
-
-        return res;
-    }
-
-    public String youtubeTestCrawling() throws IOException{
-        List<Map<String,String>> res = new ArrayList<>();
-        Document doc = Jsoup.connect("https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%98")
-                .timeout(100000)
-                .get();
-
-        Elements contents = doc.select("body");
-        System.out.println("====");
-        System.out.println(contents);
-
-        return doc.toString();
-    }
-
-
-
 
     public String koreaCase(String serviceCase) throws IOException{
 
@@ -161,24 +122,7 @@ public class CovidService {
         urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json","UTF-8"));
         URL url = new URL(urlBuilder.toString());
 
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        //System.out.println("Response code: " + conn.getResponseCode());
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        return sb.toString();
+        return httpApiReq(url);
     }
 
     public String worldCase(String serviceCase) throws IOException{
@@ -190,6 +134,11 @@ public class CovidService {
 
         URL url = new URL(urlBuilder.toString());
 
+
+        return httpApiReq(url);
+    }
+
+    public String httpApiReq(URL url) throws IOException{
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");

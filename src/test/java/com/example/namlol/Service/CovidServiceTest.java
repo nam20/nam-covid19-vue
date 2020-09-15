@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +30,14 @@ class CovidServiceTest {
 
 
     @Test
-    void youtubeCrawling() throws IOException{
-        covidService.seleniumTest();
+    void googleCrawling() throws IOException{
+        covidService.googleCrawling();
     }
+
+    @Test
+    void youtubeSearch() throws IOException{
+        covidService.youtubeSearch();
+    }
+
+
 }

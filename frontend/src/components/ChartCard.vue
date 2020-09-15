@@ -1,22 +1,15 @@
 <template>
   <v-card>
-        <v-card
-        flat
-        tile
-        color="#f0f2f7">
-                <v-card-subtitle>
-                    <h3 style="color: #4678eb;"> 
-                        <slot name="title"></slot> 
-                    <h3>
-                </v-card-subtitle>
-        </v-card>
-        <v-card
-        flat
-        tile
-        :height="cardHeight">
+        <div style="background-color:#f0f2f7">
+            <v-card-subtitle>
+                <h3 style="color: #4678eb;"> 
+                    <slot name="title"></slot> 
+                <h3>
+            </v-card-subtitle>
+        </div>
+        <div :style="{ height : cardHeight }">
             <slot name="body"></slot>
-        </v-card>
-        
+        </div>
     </v-card>
 </template>
 

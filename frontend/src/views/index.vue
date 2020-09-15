@@ -96,7 +96,7 @@
                         <template v-slot:body>
                             <GChart
                             type="GeoChart"
-                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :settings="{ packages: [ 'geochart']}"
                             :data="koreaGeoChartData"
                             :options="koreaGeoChartOptions"
                             
@@ -231,7 +231,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12" sm="12" md="6">
-                    <chart-card :card-height="430">
+                    <chart-card card-height="420px">
                         <template v-slot:title>
                             연령대별 확진자 현황
                         </template>
@@ -245,7 +245,7 @@
           
                 </v-col>
                 <v-col cols="12" sm="12" md="6">
-                    <chart-card :card-height="430">
+                    <chart-card card-height="420px">
                         <template v-slot:title>
                             연령대별 치명율 현황
                         </template>
@@ -319,19 +319,22 @@
 
             <v-row >
                 <v-col cols="12" md="6">
-                    <!-- <chart-card>
+                    <chart-card>
                         <template v-slot:title>
                             전세계 코로나 발병 지도
                         </template>
                         <template v-slot:body>
                             <GChart
                             type="GeoChart"
-                            :settings="{ packages: [ 'geochart'], mapsApiKey : 'AIzaSyDXlL3m7Q99D4ZDHEDntQ5b_uj30bzduqY' }"
+                            :settings="{ packages: [ 'geochart'] }"
                             :data="worldGeoChartData"
                             :options="worldGeoChartOptions"
+                            :resizeDebounce="0"
+                            v-if="worldGeoChartLoaded"
+                            
                             />
                         </template>
-                    </chart-card> -->
+                    </chart-card>
                 </v-col>
                 <v-col cols="12" md="6">
                     <chart-card>
@@ -350,43 +353,43 @@
             </v-row>
             
            
-            <v-row id="covidPrevention">
-                <v-col cols="12" sm="12" md="6">
-                    <chart-card>
-                        <template v-slot:title>
-                            예방 행동 수칙
-                        </template>
-                        <template v-slot:body>
-                            <v-carousel
-                            cycle
-                            hide-delimiter-background
-                            show-arrows-on-hover
-                            height="800"
-                            style="margin: 10px 0 10px"
-                            >
-                                <v-carousel-item
-                                v-for="slide in slides"
-                                :key="slide"
-                                >
-                            
-                                <v-img :src="slide.src" 
-                                max-height="800" 
-                                contain/>
-                                
-                                </v-carousel-item>
-                            </v-carousel>
-                        </template>
-                    </chart-card>
-                </v-col>
+            <v-row >
                 <v-col cols="12" sm="12" md="6">
                     <v-row>
                         <v-col cols="12" class="pt-0">
-                            <chart-card >
+                            <chart-card>
+                                <template v-slot:title>
+                                    유튜브 관련 영상
+                                </template>
+                                <template v-slot:body>
+                                    <v-card 
+                                    v-for="item in youtubeList" 
+                                    :key="item" 
+                                    class="px-2" 
+                                    tile outlined 
+                                    :href="`https://www.youtube.com/watch?v=${item.id.videoId}`" 
+                                    target="_blank">
+                                        <v-row align="center">
+                                            <v-col cols="4">
+                                                <v-img :src="item.snippet.thumbnails.medium.url"></v-img>
+                                            </v-col>
+                                            <v-col cols="8">
+                                                <v-card-title v-text="item.snippet.title" class="mb-2"></v-card-title>
+                                                <v-card-subtitle v-text="item.snippet.description"></v-card-subtitle>
+                                            </v-col>
+                                        </v-row>
+                                        <!-- <h2>{{item.snippet.title}}</h2> -->
+                                    </v-card>
+                                </template>
+                            </chart-card>
+                        </v-col>
+                        <v-col cols="12" >
+                            <chart-card>
                                 <template v-slot:title>
                                     전염병 통계 비교
                                 </template>
                                 <template v-slot:body>
-                                    <v-simple-table class="my-5" >
+                                    <v-simple-table class="my-3" >
                                         <thead>
                                             <tr>
                                                 <th><h3>병명</h3></th>
@@ -443,7 +446,12 @@
                                 </template>
                             </chart-card>
                         </v-col>
-                        <v-col cols="12" id="cityConfirmed">
+                    </v-row>
+                    
+                </v-col>
+                <v-col cols="12" sm="12" md="6">
+                    <v-row>
+                        <v-col cols="12" class="pt-0" id="cityConfirmed">
                             <chart-card>
                                 <template v-slot:title>
                                     확진자 동향
@@ -459,36 +467,68 @@
                                             </v-btn>
                                         </v-col>
                                     </v-row>
+                                </template>
+                            </chart-card>
+                            
+                        </v-col>
+                        <v-col cols="12" id="covidPrevention">
+                            <chart-card>
+                                <template v-slot:title>
+                                    예방 행동 수칙
+                                </template>
+                                <template v-slot:body>
+                                    <v-carousel
+                                    cycle
+                                    hide-delimiter-background
+                                    show-arrows-on-hover
+                                    height="800"
+                                    >
+                                        <v-carousel-item
+                                        v-for="slide in slides"
+                                        :key="slide"
+                                        >
                                     
-                                    
-
+                                        <v-img :src="slide.src" 
+                                        max-height="800" 
+                                        contain/>
+                                        
+                                        </v-carousel-item>
+                                    </v-carousel>
+                                </template>
+                            </chart-card>
+                        </v-col>
+                        <v-col cols="12">
+                            <chart-card>
+                                <template v-slot:title>
+                                    데이터 출처
                                 </template>
                             </chart-card>
                         </v-col>
                     </v-row>
-                    
-                    
                 </v-col>
             </v-row>
            
             <v-row>
-                <v-col>
-                    <chart-card>
+                <v-col >
+                    <!-- <chart-card>
                         <template v-slot:title>
-                            유튜브 관련 영상
+                            확진자 동향
                         </template>
                         <template v-slot:body>
-                            
+                            <v-row justify="center">
+                                <v-col cols="10">
+                                    <v-btn 
+                                    tile outlined color="#4678eb" 
+                                    class="ma-2"
+                                    v-for="city in cityCovidPages" :key="city" :href="city[1]" target="_blank">
+                                        {{city[0]}}
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
                         </template>
-                    </chart-card>
+                    </chart-card> -->
                 </v-col>
-                <v-col>
-                    <chart-card>
-                        <template v-slot:title>
-                            데이터 출처
-                        </template>
-                    </chart-card>
-                </v-col>
+                
             </v-row>
             
         
@@ -594,6 +634,8 @@ export default {
                 },
                 height:550
             },
+
+            worldGeoChartLoaded : false,
             slides:[
                 {
                     src: 'images/corona-1.jpg'
@@ -672,9 +714,8 @@ export default {
                 ['경북', 'http://gb.go.kr/corona_main.htm'],
                 ['경남', 'http://xn--19-q81ii1knc140d892b.kr/main/main.do'],
                 ['제주', 'https://www.jeju.go.kr/wel/healthCare/corona/coronaNotice.htm']
-
-
-            ]
+            ],
+            youtubeList:[]
 
 
             
@@ -703,7 +744,11 @@ export default {
         this.covidCity();
 
         this.getCountryTotal()
+
+        this.youtubeSearch()
+
         
+
        
     },
     methods:{
@@ -746,7 +791,7 @@ export default {
                 
                 const yesterdayWorld = data[0]
                 const todayWorld = data[1]
-                console.log(data)
+                
                 this.worldTotal = {
                     totalConfirmed : this.numberCommas(todayWorld.confirmed) ,
                     totalDeaths : this.numberCommas(todayWorld.deaths),
@@ -764,7 +809,8 @@ export default {
                 const countryData = data.map(covid => [covid.country, covid.confirmed, covid.deaths] )
                 
                 this.worldGeoChartData = [['Country','확진','사망']].concat(countryData)
-
+               
+                this.worldGeoChartLoaded = true
 
                 const conf = this.countryStatusSortData(data, 'confirmed')
                 const deaths = this.countryStatusSortData(data, 'deaths')
@@ -906,7 +952,6 @@ export default {
         async googleCrawling(){
             try{
                 let { data } = await axios.get('/covid/news/google')
-                console.log(data) 
                 this.googleNews = data
             }catch(e){
                 console.error(e)
@@ -951,11 +996,8 @@ export default {
                     ]
                 }
 
-
                 let gen  = genData.map(covid => covid.gubun)
-                console.log(genData)
-                
-
+   
                 this.koreaGenData = [
                     {
                         labels : gen,
@@ -1009,7 +1051,6 @@ export default {
             try{
                 let res = await axios.get('/covid/korea/city')
                 let cityData = res.data.response.body.items.item.slice(0, 18)
-                console.log(cityData)
                 let cityNames = cityData.map(city => city.gubun)
                 
 
@@ -1069,6 +1110,23 @@ export default {
                 }
                 this.koreaGeoChartLoaded = true
 
+            }catch(e){
+                console.error(e)
+            }
+        },
+        async youtubeSearch(){
+            try{
+                const { data } = await axios.get('/covid/youtube')
+                
+                let searchList = data.items
+                
+                
+                searchList.forEach(youtube => {
+                    youtube.snippet.title = youtube.snippet.title.replaceAll('&quot;','"')
+                })
+                console.log(searchList)
+                this.youtubeList = searchList
+                
             }catch(e){
                 console.error(e)
             }

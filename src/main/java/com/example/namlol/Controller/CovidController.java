@@ -1,7 +1,6 @@
 package com.example.namlol.Controller;
 
 import com.example.namlol.Service.CovidService;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +21,13 @@ public class CovidController {
     }
 
     @GetMapping("/news/naver")
-    public List<Map<String,String>> naverClawling() throws IOException {
-        return covidService.naverClawling();
+    public List<Map<String,String>> naverCrawling() throws IOException {
+        return covidService.naverCrawling();
     }
 
     @GetMapping("/news/google")
-    public List<Map<String,String>> googleClawling() throws IOException {
-        return covidService.googleClawling();
+    public List<Map<String,String>> googleCrawling() throws IOException {
+        return covidService.googleCrawling();
     }
 
     @GetMapping("/korea/{serviceCase}")
@@ -46,9 +45,11 @@ public class CovidController {
         return covidService.worldOmeterCrawling();
     }
 
-    @GetMapping("/test")
-    public String test() throws IOException{
-        return covidService.youtubeTestCrawling();
+    @GetMapping("/youtube")
+    public String youtubeSearch() throws IOException{
+        return covidService.youtubeSearch();
     }
+
+
 
 }
