@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import LineChart from '@/components/LineChart'
-import BarChart from '@/components/BarChart'
-import BubbleChart from '@/components/BubbleChart'
-import Reactive from '@/components/Reactive'
+import LineChart from '@/components/chart/LineChart'
+import BarChart from '@/components/chart/BarChart'
+import BubbleChart from '@/components/chart/BubbleChart'
+import Reactive from '@/components/chart/Reactive'
 
 
 export default {

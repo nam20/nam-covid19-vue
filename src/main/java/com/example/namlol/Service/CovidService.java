@@ -44,7 +44,6 @@ public class CovidService {
             res.add(map);
         }
         return res;
-
     }
 
     public List<Map<String,String>> googleCrawling() throws IOException{
@@ -60,7 +59,6 @@ public class CovidService {
             map.put("href",sb.toString());
             res.add(map);
         }
-
         return res;
     }
 
@@ -70,7 +68,6 @@ public class CovidService {
         Elements contents = doc.select("table#main_table_countries_yesterday tbody tr:nth-child(n+8)");
         Element yesterdayContent = doc.select("table#main_table_countries_yesterday2 tbody tr:nth-child(8)").first();
         contents.add(0, yesterdayContent);
-        //System.out.println(yesterdayContent);
 
         for(Element content : contents){
             Elements elements = content.select("td");

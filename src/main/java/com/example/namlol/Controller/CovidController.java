@@ -50,6 +50,4 @@ public class CovidController {
         return covidService.youtubeSearch();
     }
 
-
-
 }

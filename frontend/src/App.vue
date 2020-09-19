@@ -42,17 +42,18 @@
 
           <v-divider></v-divider>
 
+          <v-list-item @click="$vuetify.goTo('#cityConfirmed')">
+            <v-list-item-content>
+              <v-list-item-title><h4>확진자 동향</h4>  </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
           <v-list-item @click="$vuetify.goTo('#covidPrevention')">
             <v-list-item-content>
               <v-list-item-title><h4>예방 수칙</h4>  </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           
-          <v-list-item @click="$vuetify.goTo('#cityConfirmed')">
-            <v-list-item-content>
-              <v-list-item-title><h4>확진자 동향</h4>  </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
         </v-list>
         
       </v-navigation-drawer>
@@ -70,6 +71,8 @@
       </v-app-bar>
 
     <v-main>
+      
+      
       <router-view/>
     </v-main>
     <v-footer>
@@ -98,3 +101,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+</style>
