@@ -1,10 +1,9 @@
 <template>
-       <v-container fluid style="background-color: #f7f9fc"> 
+       <v-container fluid  style="background-color: #f7f9fc"> 
             
             <today-total 
             :koreaTotalData="koreaDailyTotalData" 
-            :worldTotalData="worldTotalData"
-            >
+            :worldTotalData="worldTotalData">
             </today-total>
           
             <korea-daily
@@ -64,24 +63,17 @@ export default {
     },
     data(){
         return {
-            
             worldTotalData : '',
-            
             koreaDailyTotalData:'',
-            
             koreaCityData:'',
-
             koreaGenData:'',
-    
             koreaAgeData:'',
-
             countryTotalData:'',
         }
     },
-
     created(){
-        this.getKoreaDailyTotal()
         this.getCountryTotal()
+        this.getKoreaDailyTotal()
         this.covidGenAge();
         this.covidCity();
     },
@@ -101,7 +93,6 @@ export default {
                 })
                 
                 this.worldTotalData = data.slice(0,2)
-
                 this.countryTotalData = data.slice(2,217)
 
             }catch(e){
@@ -111,25 +102,16 @@ export default {
         async getKoreaDailyTotal(){
             try{
                 let { data } = await axios.get('/covid/korea/day')
-                console.log(data)
                 data = data.response.body.items.item.reverse()
                 data.splice(116, 2)
                 
-                //this.koreaTotal = data.slice(data.length-2)
-                
-                const dates = data.map(covid => covid.createDt.substring(5,10))
-                const confirmed = data.map(covid => covid.decideCnt)
-                const recovered = data.map(covid => covid.clearCnt)
-                const deaths = data.map(covid => covid.deathCnt)
-
                 this.koreaDailyTotalData = {
-                    dates, 
-                    confirmed,
-                    recovered,
-                    deaths
+                    dates : data.map(covid => covid.createDt.substring(5,10)), 
+                    confirmed : data.map(covid => covid.decideCnt),
+                    recovered : data.map(covid => covid.clearCnt),
+                    deaths : data.map(covid => covid.deathCnt)
                 }
 
-                
             }catch(e){
                 console.error(e)
             }
@@ -137,13 +119,10 @@ export default {
        
         async covidGenAge(){
             try{
-                const res = await axios.get('/covid/korea/genAge')
+                let { data } = await axios.get('/covid/korea/genAge')
+                data = data.response.body.items.item
                 
-                const data = res.data.response.body.items.item
-                
-               
                 this.koreaAgeData = data.slice(0, 9)
-          
                 this.koreaGenData = data.slice(9, 11)
 
             }catch(e){

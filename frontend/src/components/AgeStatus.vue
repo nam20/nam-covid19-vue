@@ -3,7 +3,7 @@
         <v-col cols="12" sm="12" md="6">
             <chart-card card-height="420px">
                 <template v-slot:title>
-                    연령대별 확진자 현황
+                    연령대별 확진자 분석
                 </template>
                 <template v-slot:body>
                     <polar-area-chart
@@ -17,7 +17,7 @@
         <v-col cols="12" sm="12" md="6">
             <chart-card card-height="420px">
                 <template v-slot:title>
-                    연령대별 치명율 현황
+                    연령대별 치명율 분석
                 </template>
                 <template v-slot:body>
                     <radar-chart
@@ -76,14 +76,13 @@ export default {
     },
     watch:{
         ageData(){
-            this.ageDataChart()
-            
+            this.ageDataChart() 
         }
     },
     methods:{
         ageDataChart(){
             const age = this.ageData.map(covid => covid.gubun)
-            console.log(this.ageData)
+            
             this.ageConfChartData = {
                     labels: age,
                     datasets:[
@@ -109,6 +108,7 @@ export default {
                         borderWidth: 1,
                         data: this.ageData.map(covid => covid.criticalRate)
                     },
+                   
                     
                 ]
             }

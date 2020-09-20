@@ -6,8 +6,9 @@
         clipped 
         app
         width="170px"
-        color="primary"
+        color="#376eed"
         dark
+        
       >
         <v-list dense>
           <v-list-item>
@@ -63,6 +64,7 @@
           clipped-left
           color="white"
           app
+          elevation="2"
       >
           <v-toolbar-title><h3 style="color: #4678eb;">코로나 보드</h3></v-toolbar-title>
           <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>

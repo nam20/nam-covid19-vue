@@ -132,6 +132,7 @@ export default {
                         borderColor:'rgba(54, 162, 235, 1)',
                         backgroundColor:'rgba(54, 162, 235, 0.2)',
                         pointBorderColor:'rgba(54, 162, 235, 1)',
+                        pointBackgroundColor:'rgba(54, 162, 235, 1)',
                         borderWidth: 2,
                         data: dailyNewConfirmed.slice(0, dailyNewConfirmed.length-1)
                     }
@@ -143,7 +144,6 @@ export default {
         worldCountryChart(){
 
             const data = this.worldCountryData
-
             const conf = this.countryStatusSortData(data, 'confirmed')
             const deaths = this.countryStatusSortData(data, 'deaths')
             const recovered = this.countryStatusSortData(data, 'recovered')
@@ -193,14 +193,12 @@ export default {
             const mapped = data.map((covid, i) => { 
                     return { i, value : covid[`${status}`] }
                 })
-
             mapped.sort((a,b) => b.value - a.value)
             const sortData = mapped.map(el => data[el.i])
             
             const otherCountryCount = sortData.slice(10)
                                         .map(covid => covid[`${status}`])
                                         .reduce((acc,cur) => acc + cur)
-
             return {
                 otherCountryCount,
                 data : sortData.slice(0,10)

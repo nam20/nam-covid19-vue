@@ -11,7 +11,7 @@
                             <tr v-for="news in naverNews" :key="news">
                                 <td>
                                     <h4>
-                                        <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
+                                        <a :href="news.href" class="text-decoration-none" style="color:#2d46c4" target="_blank">{{news.title}}</a>
                                     </h4>
                                 </td>
                             </tr>
@@ -33,7 +33,7 @@
                             <tr v-for="news in googleNews" :key="news">
                                 <td>
                                     <h4>
-                                        <a :href="news.href" style="text-decoration:none; color:#2d46c4" target="_blank">{{news.title}}</a>
+                                        <a :href="news.href" class="text-decoration-none" style="color:#2d46c4" target="_blank">{{news.title}}</a>
                                     </h4>
                                 </td>
                             </tr>
@@ -69,29 +69,13 @@ export default {
                 const googlePromise = axios.get('/covid/news/google')
 
                 const [naverCrawling, googleCrawling] = await Promise.all([naverPromise, googlePromise])
-                console.log(naverCrawling)
+                
                 this.naverNews = naverCrawling.data
                 this.googleNews = googleCrawling.data
             }catch(e){
                 console.error(e)
             }
         },
-        // async naverCrawling(){
-        //     try{
-        //         let { data } = await axios.get('/covid/news/naver')
-        //         this.naverNews = data
-        //     }catch(e){
-        //         console.error(e)
-        //     }
-        // },
-        // async googleCrawling(){
-        //     try{
-        //         let { data } = await axios.get('/covid/news/google')
-        //         this.googleNews = data
-        //     }catch(e){
-        //         console.error(e)
-        //     }
-        // },
     }
 
 }

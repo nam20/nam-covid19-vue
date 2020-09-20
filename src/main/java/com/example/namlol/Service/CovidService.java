@@ -1,5 +1,6 @@
 package com.example.namlol.Service;
 
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -90,7 +91,6 @@ public class CovidService {
         urlBuilder.append("&" + URLEncoder.encode("q","UTF-8") + "=" + URLEncoder.encode("코로나","UTF-8"));
 
         URL url = new URL(urlBuilder.toString());
-
         return httpApiReq(url);
     }
 

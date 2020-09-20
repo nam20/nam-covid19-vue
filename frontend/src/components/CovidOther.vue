@@ -20,7 +20,7 @@
                                         <v-img :src="item.snippet.thumbnails.medium.url"></v-img>
                                     </v-col>
                                     <v-col cols="8">
-                                        <v-card-title v-text="item.snippet.title" class="mb-2"></v-card-title>
+                                        <v-card-title v-text="decodeHtmlEntity(item.snippet.title)" class="mb-2"></v-card-title>
                                         <v-card-subtitle v-text="item.snippet.description"></v-card-subtitle>
                                     </v-col>
                                 </v-row>
@@ -111,6 +111,10 @@
                                     v-for="city in cityCovidPages" :key="city" :href="city[1]" target="_blank">
                                         {{city[0]}}
                                     </v-btn>
+                                    <ul class="my-2">
+                                        <li class="text-caption">지역을 클릭하면 확진자 상세정보가 있는 지자체 홈페이지 새 창이 열립니다.</li>
+                                    </ul>
+                                    <!-- <v-card-text></v-card-text> -->
                                 </v-col>
                             </v-row>
                         </template>
@@ -133,11 +137,9 @@
                                 v-for="slide in imageSlides"
                                 :key="slide"
                                 >
-                            
                                 <v-img :src="slide.src" 
                                 max-height="800" 
                                 contain/>
-                                
                                 </v-carousel-item>
                             </v-carousel>
                         </template>
@@ -148,6 +150,19 @@
                         <template v-slot:title>
                             데이터 출처
                         </template>
+                        <template v-slot:body>
+                            <v-row justify="center">
+                                <v-col cols="10">
+                                    <ul>
+                                        <li v-for="source in dataSources" :key="source">
+                                            <a :href="source[0]" class="text-decoration-none" target="_blank" v-text="source[1]"></a>
+                                        </li>
+                                    </ul>
+                                </v-col>
+                            </v-row>
+                            
+                        </template>
+                        
                     </chart-card>
                 </v-col>
             </v-row>
@@ -204,10 +219,18 @@ export default {
                 },
                 
             ],
-        }
+            dataSources:[
+                ['https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=%EC%BD%94%EB%A1%9C%EB%82%98&brm=&svcType=&instt=&extsn=&recmSe=N','공공데이터포털 코로나 데이터'],
+                ['https://www.worldometers.info/coronavirus/?utm_campaign=homeAdvegas1?','Worldometer COVID-19 Coronavirus Cases'],
+                ['https://search.naver.com/search.naver?query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%99%95%EC%A7%84%EC%9E%90&where=news&ie=utf8&sm=nws_hty','네이버 뉴스 코로나 확진자 검색 결과'],
+                ['https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNREZqY0hsNUVnSmxiaWdBUAE/sections/CAQqEAgAKgcICjCcuZcLMI_irgMwwLvMBg?hl=en-US&gl=US&ceid=US%3Aen','구글 뉴스 코로나 정보'],
+                ['http://www.cdc.go.kr/gallery.es?mid=a20503020000&bid=0003','질병관리본부 홍보자료']
+            ],
+            
+       }
     },
     created(){
-       // this.youtubeSearch()
+        //this.youtubeSearch()
     },
     watch:{
         koreaTotalData(){
@@ -220,17 +243,12 @@ export default {
     methods:{
         getWorldTotal(){
 
-            const yesterdayWorld = this.worldTotalData[0]
             const todayWorld = this.worldTotalData[1]
             
             const worldTotal = {
                 totalConfirmed : todayWorld.confirmed ,
                 totalDeaths : todayWorld.deaths,
-                totalRecovered : todayWorld.recovered,
                 totalCritical: (todayWorld.deaths / todayWorld.confirmed * 100 ).toFixed(1),
-                newConfirmed : todayWorld.confirmed - yesterdayWorld.confirmed,
-                newDeaths: todayWorld.deaths - yesterdayWorld.deaths,
-                newRecovered : todayWorld.recovered - yesterdayWorld.recovered
             }
 
             for(let el in worldTotal){
@@ -242,20 +260,14 @@ export default {
         getKoreaTotal(){
 
            
-            let { confirmed, recovered, deaths } = this.koreaTotalData
+            let { confirmed, deaths } = this.koreaTotalData
 
             confirmed = confirmed.slice(confirmed.length-2)
-            recovered = recovered.slice(recovered.length-2)
             deaths = deaths.slice(deaths.length-2)
 
             const koreaTotal = {
                 totalConfirmed : confirmed[1],
                 totalDeaths : deaths[1],
-                totalRecovered : recovered[1],
-                totalCritical: (deaths[1] / confirmed[1] * 100).toFixed(1),
-                newConfirmed : confirmed[1] - confirmed[0],
-                newDeaths : deaths[1] - deaths[0],
-                newRecovered : recovered[1] - recovered[0]
             }
 
             for(let el in koreaTotal){
@@ -267,15 +279,8 @@ export default {
         async youtubeSearch(){
             try{
                 const { data } = await axios.get('/covid/youtube')
-                
-                const searchList = data.items
-                
-                
-                searchList.forEach(youtube => {
-                    youtube.snippet.title = youtube.snippet.title.replaceAll('&quot;','"')
-                })
-                
-                this.youtubeList = searchList
+   
+                this.youtubeList = data.items
                 
             }catch(e){
                 console.error(e)
@@ -283,6 +288,11 @@ export default {
         },
         numberCommas(input){
             return input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        },
+        decodeHtmlEntity(text){
+            const textArea = document.createElement('textarea');
+            textArea.innerHTML = text;
+            return textArea.value;
         }
     }
 }

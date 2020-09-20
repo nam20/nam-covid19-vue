@@ -66,15 +66,11 @@ export default {
     },
     created(){
         this.getWorldDailyTotalChart()
-
-        console.log(isoCountries['Afghanistan'])
-        
     },
     watch:{
         countryData(){
             this.worldCountryGeoChart()
         },
-        
     },
     methods:{
         worldCountryGeoChart(){
@@ -111,6 +107,8 @@ export default {
                             borderColor:'rgba(54, 162, 235, 1)',
                             backgroundColor:'rgba(54, 162, 235, 0.2)',
                             pointBorderColor:'rgba(255, 255, 255, 0)',
+                            pointBackgroundColor:'rgba(54, 162, 235, 1)',
+                            
                             borderWidth: 2,
                             data: data.map(covid => covid.confirmed.total)
                         }

@@ -109,16 +109,18 @@ export default {
                     {
                         label: '확진자',
                         borderColor:'rgba(54, 162, 235, 1)',
-                        backgroundColor:'rgba(54, 162, 235, 0.2)',
+                        backgroundColor:'rgba(54, 162, 235, 0.05)',
                         pointBorderColor:'rgba(255, 255, 255, 0)',
+                        pointBackgroundColor:'rgba(54, 162, 235, 1)',
                         borderWidth: 2,
                         data: confirmed
                     },
                     {
                         label: '완치자',
                         borderColor:'rgba(29, 237, 14, 1)',                     
-                        backgroundColor:'rgba(29, 237, 14, 0.2)',
+                        backgroundColor:'rgba(29, 237, 14, 0.05)',
                         pointBorderColor:'rgba(255, 255, 255, 0)',
+                        pointBackgroundColor:'rgba(29, 237, 14, 1)',
                         borderWidth: 2,
                         data: recovered
                     },
@@ -126,8 +128,9 @@ export default {
                     {
                         label: '사망자',
                         borderColor:'rgba(219, 47, 35, 1)',
-                        backgroundColor:'rgba(219, 47, 35, 0.2)',
+                        backgroundColor:'rgba(219, 47, 35, 0.05)',
                         pointBorderColor:'rgba(255, 255, 255, 0)',
+                        pointBackgroundColor:'rgba(219, 47, 35, 1)',
                         borderWidth: 2,
                         data: deaths
                     },

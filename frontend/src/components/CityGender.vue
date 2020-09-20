@@ -3,7 +3,7 @@
         <v-col cols="12" sm="12" md="6">
             <chart-card>
                 <template v-slot:title>
-                    도시별 확진자 현황
+                    도시별 확진자 분석
                 </template>
                 <template v-slot:body>
                     <bar-chart
@@ -37,7 +37,7 @@
         <v-col cols="12" sm="12" md="6">
             <chart-card>
                 <template v-slot:title>
-                    성별 확진자 현황
+                    성별 확진자 분석
                 </template>
                 <template v-slot:body>
                     <pie-chart
