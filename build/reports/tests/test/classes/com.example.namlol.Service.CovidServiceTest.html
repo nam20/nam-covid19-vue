@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">2.981s</div>
+<div class="counter">9.196s</div>
 <p>duration</p>
 </div>
 </td>
@@ -66,6 +66,9 @@
 <li>
 <a href="#tab1">Standard output</a>
 </li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -78,8 +81,8 @@
 </tr>
 </thead>
 <tr>
-<td class="success">googleCrawling()</td>
-<td class="success">2.981s</td>
+<td class="success">youtubeTest()</td>
+<td class="success">9.196s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,24 +90,24 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>18:43:55.166 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-18:43:55.232 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-18:43:55.284 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.example.namlol.Service.CovidServiceTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
-18:43:55.305 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.namlol.Service.CovidServiceTest], using SpringBootContextLoader
-18:43:55.311 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.namlol.Service.CovidServiceTest]: class path resource [com/example/namlol/Service/CovidServiceTest-context.xml] does not exist
-18:43:55.312 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.namlol.Service.CovidServiceTest]: class path resource [com/example/namlol/Service/CovidServiceTestContext.groovy] does not exist
-18:43:55.312 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.namlol.Service.CovidServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-18:43:55.313 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.namlol.Service.CovidServiceTest]: CovidServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-18:43:55.383 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.example.namlol.Service.CovidServiceTest]
-18:43:55.499 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\projects\nam-lol\build\classes\java\main\com\example\namlol\NamLolApplication.class]
-18:43:55.501 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.namlol.NamLolApplication for test class com.example.namlol.Service.CovidServiceTest
-18:43:55.652 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.example.namlol.Service.CovidServiceTest]: using defaults.
-18:43:55.654 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-18:43:55.677 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
-18:43:55.685 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
-18:43:55.687 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7a88d2e2, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2456a70f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5eb49f8, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3fe8a9be, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3cb7363, org.springframework.test.context.event.EventPublishingTestExecutionListener@1234c2ca, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4dcffdfd, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@371018a3, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6f183549, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5b0e98f2, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@699cb67b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5e7e6eeb]
-18:43:55.695 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@51fa346a testClass = CovidServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@bb4f36b testClass = CovidServiceTest, locations = '{}', classes = '{class com.example.namlol.NamLolApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@67cff, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@2d16d59e, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@690a71d5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7590e9ca, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4b705bc5, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
-18:43:55.737 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
+<pre>12:34:31.881 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+12:34:31.903 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+12:34:31.937 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.example.namlol.Service.CovidServiceTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+12:34:31.955 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.namlol.Service.CovidServiceTest], using SpringBootContextLoader
+12:34:31.960 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.namlol.Service.CovidServiceTest]: class path resource [com/example/namlol/Service/CovidServiceTest-context.xml] does not exist
+12:34:31.961 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.namlol.Service.CovidServiceTest]: class path resource [com/example/namlol/Service/CovidServiceTestContext.groovy] does not exist
+12:34:31.961 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.namlol.Service.CovidServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+12:34:31.963 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.namlol.Service.CovidServiceTest]: CovidServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:34:32.014 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.example.namlol.Service.CovidServiceTest]
+12:34:32.098 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\projects\nam-lol\build\classes\java\main\com\example\namlol\NamLolApplication.class]
+12:34:32.099 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.namlol.NamLolApplication for test class com.example.namlol.Service.CovidServiceTest
+12:34:32.223 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.example.namlol.Service.CovidServiceTest]: using defaults.
+12:34:32.223 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+12:34:32.246 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+12:34:32.249 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+12:34:32.252 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@e92aef8, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@791fe24b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4cfe854c, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@19ad252a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2d3bd89, org.springframework.test.context.event.EventPublishingTestExecutionListener@4580a22, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3c342b00, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4c40ddd9, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@53e00e2d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@17ad1769, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@a5c52b7, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4038f830]
+12:34:32.265 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@7bcb576d testClass = CovidServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@585b505e testClass = CovidServiceTest, locations = '{}', classes = '{class com.example.namlol.NamLolApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@7bfa14bb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5a3bcdc9, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5c993122, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6fc0b66b, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@f528a2a, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+12:34:32.311 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -114,21 +117,32 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::       (v2.4.0-SNAPSHOT)
 
-2020-09-15 18:43:56.174  INFO 30588 --- [    Test worker] c.e.namlol.Service.CovidServiceTest      : Starting CovidServiceTest using Java 14.0.2 on po-PC with PID 30588 (started by MAIN in C:\projects\nam-lol)
-2020-09-15 18:43:56.177  INFO 30588 --- [    Test worker] c.e.namlol.Service.CovidServiceTest      : No active profile set, falling back to default profiles: default
-2020-09-15 18:43:57.927  INFO 30588 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-09-15 18:43:58.057  INFO 30588 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2020-09-15 18:43:58.271  INFO 30588 --- [    Test worker] c.e.namlol.Service.CovidServiceTest      : Started CovidServiceTest in 2.523 seconds (JVM running for 4.314)
-&lt;a href=&quot;./articles/CAIiELwno2gLiT6X7tIBU_rKWG4qGAgEKg8IACoHCAoww5LyAzD2zh0w_ru7Bg?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;COVID-19 in Africa: Milder-than-expected pandemic has experts puzzled&lt;/a&gt;
-&lt;a href=&quot;./articles/CAIiEFiWsrHGPRkS7sZKA9gV2LoqGAgEKg8IACoHCAowlOzSATCaiDUwg6vkBQ?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Why Covid-19 case numbers are falling in the US&lt;/a&gt;
-&lt;a href=&quot;./articles/CAIiEEwxUyzMrNlfOR8qjdU2KUkqGQgEKhAIACoHCAowocv1CjCSptoCMPrTpgU?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Israel is going into a second nationwide lockdown over Covid-19&lt;/a&gt;
-&lt;a href=&quot;./articles/CAIiEIidFKRaX3xbnhHv58EySkgqGQgEKhAIACoHCAowocv1CjCSptoCMPrTpgU?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Germany links Covid-19 outbreak at ski resort to US citizen who failed to quarantine&lt;/a&gt;
-&lt;a href=&quot;./articles/CBMiMmh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy93b3JsZC1hc2lhLWluZGlhLTU0MTM5MTEy0gE2aHR0cHM6Ly93d3cuYmJjLmNvbS9uZXdzL2FtcC93b3JsZC1hc2lhLWluZGlhLTU0MTM5MTEy?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Coronavirus: India faces oxygen scarcity as cases surge&lt;/a&gt;
-&lt;a href=&quot;./articles/CAIiEOwPvaXcb3LwJ6ZzmHjyqesqGAgEKg8IACoHCAowhK-LAjD4ySww-9S0BQ?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Chinese virologist posts report claiming COVID-19 was made in Wuhan lab&lt;/a&gt;
-&lt;a href=&quot;./articles/CCAiC1ktcUszbjRtejJJmAEB?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Trial finds medicine helps shorten COVID-19 hospital stay&lt;/a&gt;
-&lt;a href=&quot;./articles/CAIiECLuUUQC-VikcHk_jSar1VIqGQgEKhAIACoHCAowocv1CjCSptoCMPrTpgU?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;'Nothing more could have been done': Trump's final phone call to Woodward&lt;/a&gt;
-&lt;a href=&quot;./articles/CBMiLmh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy93b3JsZC1ldXJvcGUtNTQxNTEyODHSATJodHRwczovL3d3dy5iYmMuY29tL25ld3MvYW1wL3dvcmxkLWV1cm9wZS01NDE1MTI4MQ?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;Coronavirus: Marseille's Covid-19 hospital beds 'close to saturation'&lt;/a&gt;
-&lt;a href=&quot;./articles/CAIiELZMjcfQEM6aaGhvdPgYKMYqGQgEKhAIACoHCAowyNj6CjDyiPICMJyFxQU?hl=en-US&amp;amp;gl=US&amp;amp;ceid=US%3Aen&quot; class=&quot;DY5T1d&quot;&gt;World Health Organization reports new daily record in COVID-19 cases&lt;/a&gt;
+2020-09-22 12:34:32.679  INFO 32096 --- [    Test worker] c.e.namlol.Service.CovidServiceTest      : Starting CovidServiceTest using Java 14.0.2 on po-PC with PID 32096 (started by MAIN in C:\projects\nam-lol)
+2020-09-22 12:34:32.684  INFO 32096 --- [    Test worker] c.e.namlol.Service.CovidServiceTest      : No active profile set, falling back to default profiles: default
+2020-09-22 12:34:34.299  INFO 32096 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-22 12:34:34.481  INFO 32096 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2020-09-22 12:34:34.905  INFO 32096 --- [    Test worker] c.e.namlol.Service.CovidServiceTest      : Started CovidServiceTest in 2.583 seconds (JVM running for 4.237)
+C:\projects\nam-lol\src\main\resources\chromedriver
+2020-09-22 12:34:39.240  INFO 32096 --- [ null to remote] o.o.selenium.remote.ProtocolHandshake    : Detected dialect: W3C
+==========
+&quot;코로나19 유전자 조합 흔적 보여...6개월이면 제작 가능&quot; / YTN
+246
+==========
+홍혜걸, 세계 기자대회에 가다! 각 나라별 코로나19 대응 방법?｜코로나19｜세계기자대회 ｜코로나방역
+246
+==========
+中 윈난성 1주일째 방역 '전시 상태'...코로나19 승리 선언했는데 / YTN
+246
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>Starting ChromeDriver 85.0.4183.87 (cd6713ebf92fa1cacc0f1a598df280093af0c5d7-refs/branch-heads/4183@{#1689}) on port 48491
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
 </pre>
 </span>
 </div>
@@ -140,7 +154,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.4.1</a> at 2020. 9. 15. 오후 6:44:01</p>
+<a href="http://www.gradle.org">Gradle 6.4.1</a> at 2020. 9. 22. 오후 12:34:44</p>
 </div>
 </div>
 </body>

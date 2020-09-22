@@ -65,6 +65,7 @@ export default {
     methods:{
         async newsCrawling(){
             try{
+                
                 const naverPromise = axios.get('/covid/news/naver')
                 const googlePromise = axios.get('/covid/news/google')
 

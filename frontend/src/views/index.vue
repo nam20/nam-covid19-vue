@@ -1,5 +1,5 @@
 <template>
-       <v-container fluid  style="background-color: #f7f9fc"> 
+       <v-container fluid  style="background-color: #f7f9fc" class="px-5"> 
             
             <today-total 
             :koreaTotalData="koreaDailyTotalData" 
@@ -72,10 +72,13 @@ export default {
         }
     },
     created(){
+        
         this.getCountryTotal()
         this.getKoreaDailyTotal()
         this.covidGenAge();
         this.covidCity();
+
+        
     },
     methods:{
        

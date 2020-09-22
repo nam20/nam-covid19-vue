@@ -64,26 +64,15 @@
 <script>
 export default {
     props:['koreaTotalData','worldTotalData'],
-    created(){
-        // this.getWorldTotal()
-        // this.getKoreaTotal()
-    },
     data(){
         return {
             todayKoreaTotal : '',
             todayWorldTotal : ''
-            
         }
     },
-    computed:{
-        compute(){
-            console.log(koreaTotalData)
-            return ""
-        }
-    },
+    
     watch:{
         koreaTotalData(){
-            
             this.getKoreaTotal()
         },
         worldTotalData(){

@@ -1,6 +1,7 @@
 package com.example.namlol.Controller;
 
 import com.example.namlol.Service.CovidService;
+import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,11 @@ public class CovidController {
     @GetMapping("/youtube")
     public String youtubeSearch() throws IOException{
         return covidService.youtubeSearch();
+    }
+
+    @GetMapping("/test")
+    public void test() throws IOException{
+
     }
 
 }

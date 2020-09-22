@@ -2,9 +2,14 @@ package com.example.namlol.Service;
 
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -34,7 +41,6 @@ public class CovidService {
     private String YOUTUBE_API_KEY;
 
     public List<Map<String,String>> naverCrawling() throws IOException {
-
         Document doc = Jsoup.connect(NAVER_CRAWLING_URL).get();
         Elements contents = doc.select("div ul li dl dt a");
         List<Map<String,String>> res = new ArrayList<>();
@@ -44,6 +50,7 @@ public class CovidService {
             map.put("href",content.attr("href"));
             res.add(map);
         }
+
         return res;
     }
 
@@ -60,10 +67,12 @@ public class CovidService {
             map.put("href",sb.toString());
             res.add(map);
         }
+
         return res;
     }
 
     public List<Map<String,String>> worldOmeterCrawling() throws IOException{
+
         List<Map<String,String>> res = new ArrayList<>();
         Document doc = Jsoup.connect("https://www.worldometers.info/coronavirus").get();
         Elements contents = doc.select("table#main_table_countries_yesterday tbody tr:nth-child(n+8)");
@@ -79,8 +88,57 @@ public class CovidService {
             map.put("recovered",elements.get(6).text());
             res.add(map);
         }
+
         return res;
     }
+
+//    public void testSelenium(){
+//        // 현재 package의 workspace 경로, Windows는 [ chromedriver.exe ]
+//        Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/chromedriver");  // 현재 package의
+//        System.out.println(path.toString());
+//        // WebDriver 경로 설정
+//        System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+//
+//        // WebDriver 옵션 설정
+//        ChromeOptions options = new ChromeOptions();
+//        //options.addArguments("--start-maximized");            // 전체화면으로 실행
+//        options.addArguments("--disable-popup-blocking");    // 팝업 무시
+//        options.addArguments("--disable-default-apps");     // 기본앱 사용안함
+//
+//        // WebDriver 객체 생성
+//        ChromeDriver driver = new ChromeDriver( options );
+//
+//        // 빈 탭 생성
+//       // driver.executeScript("window.open('about:blank','_blank');");
+//
+//        // 탭 목록 가져오기
+//       // List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+//
+//        // 첫번째 탭으로 전환
+//      //  driver.switchTo().window(tabs.get(0));
+//
+//        // 웹페이지 요청
+//        driver.get("https://www.youtube.com/results?search_query=%EC%BD%94%EB%A1%9C%EB%82%9819");
+//
+//        // 웹페이지 소스 출력
+//        //System.out.println( driver.getPageSource() );
+//        List<WebElement> list  =  driver.findElementsByCssSelector("div#contents ytd-video-renderer"); //driver.findElementsByXPath("//*[@id=\"items\"]/ytd-video-renderer");
+//
+//        // 탭 종료
+//        //driver.close();
+//
+//        // 5초 후에 WebDriver 종료
+//        try {
+//            Thread.sleep(10);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } finally {
+//            // WebDriver 종료
+//            driver.quit();
+//        }
+//    }
+
+
 
     public String youtubeSearch() throws IOException{
         StringBuilder urlBuilder =  new StringBuilder(YOUTUBE_SEARCH_URL); /*URL*/
