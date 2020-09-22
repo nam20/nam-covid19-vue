@@ -88,7 +88,6 @@ public class CovidService {
             map.put("recovered",elements.get(6).text());
             res.add(map);
         }
-
         return res;
     }
 
