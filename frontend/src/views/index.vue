@@ -72,13 +72,11 @@ export default {
         }
     },
     created(){
-        
         this.getCountryTotal()
         this.getKoreaDailyTotal()
         this.covidGenAge();
         this.covidCity();
-
-        
+        console.log('test')
     },
     methods:{
        
