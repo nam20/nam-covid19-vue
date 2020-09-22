@@ -76,7 +76,6 @@ export default {
         this.getKoreaDailyTotal()
         this.covidGenAge();
         this.covidCity();
-        console.log('test')
     },
     methods:{
        
