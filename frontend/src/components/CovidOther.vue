@@ -137,9 +137,19 @@
                                 v-for="slide in imageSlides"
                                 :key="slide"
                                 >
-                                <v-img :src="slide.src" 
-                                max-height="800" 
-                                contain/>
+                                    <v-img :src="slide.src" 
+                                    max-height="800" 
+                                    contain>
+                                        <template v-slot:placeholder>
+                                            <v-row
+                                            class="fill-height ma-0"
+                                            align="center"
+                                            justify="center"
+                                            >
+                                                <v-progress-circular indeterminate color="grey lighten-1"></v-progress-circular>
+                                            </v-row>
+                                        </template>
+                                    </v-img>
                                 </v-carousel-item>
                             </v-carousel>
                         </template>

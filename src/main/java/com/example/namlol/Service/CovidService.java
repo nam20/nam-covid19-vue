@@ -89,7 +89,6 @@ public class CovidService {
             map.put("recovered",elements.get(6).text());
             res.add(map);
         }
-        System.out.println(System.getProperty("user.dir"));
         return res;
     }
 
