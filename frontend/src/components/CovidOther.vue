@@ -230,7 +230,7 @@ export default {
        }
     },
     created(){
-        //this.youtubeSearch()
+        this.youtubeSearch()
     },
     watch:{
         koreaTotalData(){
