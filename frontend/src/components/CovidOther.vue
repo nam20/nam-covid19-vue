@@ -16,10 +16,10 @@
                             :href="`https://www.youtube.com/watch?v=${item.id.videoId}`" 
                             target="_blank">
                                 <v-row align="center">
-                                    <v-col cols="4">
+                                    <v-col cols="12" sm="4">
                                         <v-img :src="item.snippet.thumbnails.medium.url"></v-img>
                                     </v-col>
-                                    <v-col cols="8">
+                                    <v-col cols="12" sm="8">
                                         <v-card-title v-text="decodeHtmlEntity(item.snippet.title)" class="mb-2"></v-card-title>
                                         <v-card-subtitle v-text="item.snippet.description"></v-card-subtitle>
                                     </v-col>
@@ -95,7 +95,7 @@
             </v-row>
             
         </v-col>
-        <v-col cols="12" sm="12" md="6" class="pt-0">
+        <v-col cols="12" sm="12" md="6" class="pt-0"> 
             <v-row>
                 <v-col cols="12" id="cityConfirmed">
                     <chart-card>
@@ -122,7 +122,7 @@
                     
                 </v-col>
                 <v-col cols="12" id="covidPrevention">
-                    <chart-card>
+                    <chart-card >
                         <template v-slot:title>
                             예방 행동 수칙
                         </template>
@@ -131,14 +131,15 @@
                             cycle
                             hide-delimiter-background
                             show-arrows-on-hover
-                            height="800"
+                            height="auto"
                             >
                                 <v-carousel-item
                                 v-for="slide in imageSlides"
                                 :key="slide"
                                 >
                                     <v-img :src="slide.src" 
-                                    max-height="800" 
+                                    aspect-ratio="0.7142"
+                                    max-height="800"
                                     contain>
                                         <template v-slot:placeholder>
                                             <v-row

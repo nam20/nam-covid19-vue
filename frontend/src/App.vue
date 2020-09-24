@@ -79,7 +79,7 @@
     </v-main>
     <v-footer>
       <v-col cols="12" class="text-center">
-        vuetify
+        ⓒ 2020. HeeJun Nam. all rights reserved.
       </v-col>
     </v-footer>
   </v-app>
