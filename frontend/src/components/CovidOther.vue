@@ -35,7 +35,7 @@
                             전염병 통계 비교
                         </template>
                         <template v-slot:body>
-                            <v-simple-table class="my-3" >
+                            <v-simple-table class="py-3" >
                                 <thead>
                                     <tr>
                                         <th><h3>병명</h3></th>
