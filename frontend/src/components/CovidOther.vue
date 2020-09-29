@@ -244,12 +244,13 @@ export default {
         this.youtubeSearch()
     },
     watch:{
-        koreaTotalData(){
+        koreaTotalData(newValue, oldValue){
             this.getKoreaTotal()
         },
         worldTotalData(){
             this.getWorldTotal()
-        }
+        },
+        
     },
     methods:{
         getWorldTotal(){

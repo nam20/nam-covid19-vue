@@ -99,6 +99,7 @@ export default {
             try{
                 const { data } = await axios.get('/covid/world/daily')
                 
+                
                 this.dailyTotalChartData  = {
                     labels : data.map(covid => covid.reportDate.substring(5)),
                     datasets:[
