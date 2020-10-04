@@ -9,7 +9,6 @@ export default {
     data(){
         return {
             
-            
             //Chart.js options that controls the appearance of the chart
             options: {
                 tooltips: {

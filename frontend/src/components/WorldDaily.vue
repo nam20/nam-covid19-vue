@@ -56,15 +56,12 @@ export default {
                 colorAxis:{
                     minValue: 0,  colors: ['#fffcfc', '#b00b0b']
                 },
-                height: this.chartHeight
+                height: 0
             },
             worldGeoChartLoaded: false,
 
             dailyTotalChartData: '',
             dailyTotalChartLoaded: false,
-
-            chartRatio : 0.624,
-           
             
         }
     },
@@ -81,7 +78,7 @@ export default {
     },
     computed:{
         chartHeight(){
-            return this.$vuetify.breakpoint.width * this.chartRatio
+            return this.$vuetify.breakpoint.width * 0.624
         }
     },
     methods:{

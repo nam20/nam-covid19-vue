@@ -10,7 +10,7 @@
                     <line-chart 
                     v-if="dailyTotalChartLoaded"
                     :chart-data="dailyTotalChartData"
-                    :height="400"
+                    :height="410"
                     >
                     </line-chart>
                 </template>
@@ -53,6 +53,7 @@ export default {
         return {
             dailyTotalChartLoaded : false,
             dailyTotalChartData: '',
+            dailyTotalChartHeight: 400,
         
             cityGeoChartData: [
                
@@ -82,13 +83,9 @@ export default {
                 colorAxis:{
                     minValue: 0,  colors: ['#fffcfc', '#b00b0b']
                 },
-                height:400
+                height: 410
             },
-
         }
-    },
-    created(){
-
     },
     watch:{
         dailyTotalData(){
@@ -96,7 +93,8 @@ export default {
         },
         cityData(){
             this.koreaCityGeoChart()
-        }
+        },
+        
     },
     methods:{
         koreaDailyTotalChart(){
@@ -143,9 +141,8 @@ export default {
         koreaCityGeoChart(){
             let { cityData } = this.cityData
             for(let i=1; i<cityData.length; i++){
-
-                    this.cityGeoChartData[i].push(cityData[i].defCnt, cityData[i].deathCnt)
-                }
+                this.cityGeoChartData[i].push(cityData[i].defCnt, cityData[i].deathCnt)
+            }
         }
     }
 

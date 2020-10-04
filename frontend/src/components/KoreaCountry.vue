@@ -188,6 +188,7 @@ export default {
             //this.worldCounrtyChartData = this.worldCounrtyChartDataArr[0]
             //this.worldCounrtyChartLoaded = true
         },
+        // 국가별 확진, 사망, 완치 수 내림차순 정렬
         countryStatusSortData(data, status){
 
             const mapped = data.map((covid, i) => { 

@@ -193,9 +193,7 @@ export default {
         return {
             todayKoreaTotal : '',
             todayWorldTotal : '',
-
             youtubeList:[],
-
             cityCovidPages:[
                 ['서울', 'https://www.seoul.go.kr/coronaV/coronaStatus.do'],
                 ['부산', 'http://www.busan.go.kr/covid19/Corona19.do'],
@@ -241,7 +239,7 @@ export default {
        }
     },
     created(){
-        //this.youtubeSearch()
+        this.youtubeSearch()
     },
     watch:{
         koreaTotalData(newValue, oldValue){
@@ -270,8 +268,6 @@ export default {
             this.todayWorldTotal = worldTotal
         },
         getKoreaTotal(){
-
-           
             let { confirmed, deaths } = this.koreaTotalData
 
             confirmed = confirmed.slice(confirmed.length-2)
@@ -290,9 +286,11 @@ export default {
         },
         async youtubeSearch(){
             try{
-                const { data } = await axios.get('/covid/youtube')
+                const { 
+                    data : { items }
+                } = await axios.get('/covid/youtube')
    
-                this.youtubeList = data.items
+                this.youtubeList = items
                 
             }catch(e){
                 console.error(e)
