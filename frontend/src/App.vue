@@ -64,7 +64,7 @@
           clipped-left
           color="white"
           app
-          elevation="2"
+          style="box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)"
       >
           <v-toolbar-title><h3 style="color: #4678eb;">코로나 보드</h3></v-toolbar-title>
           <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>

@@ -1,7 +1,7 @@
 <template>
     <v-row justify="center" id="covidStatus"> 
         <v-col cols="12" sm="12" md="6">
-            <v-card>
+            <v-card style="box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)" outlined>
                 <v-card-subtitle style="color: #4678eb; background-color:#f0f2f7" >
                     <h2>국내 현황</h2>
                 </v-card-subtitle>
@@ -30,7 +30,7 @@
             </v-card>
         </v-col>
         <v-col cols="12" sm="12" md="6">
-            <v-card>
+            <v-card style="box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)" outlined>
                 <v-card-subtitle style="color: #4678eb; background-color:#f0f2f7" >
                     <h2>세계 현황</h2>
                 </v-card-subtitle>
