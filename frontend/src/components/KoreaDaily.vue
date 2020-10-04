@@ -10,7 +10,7 @@
                     <line-chart 
                     v-if="dailyTotalChartLoaded"
                     :chart-data="dailyTotalChartData"
-                    :height="500"
+                    :height="400"
                     >
                     </line-chart>
                 </template>
@@ -82,7 +82,7 @@ export default {
                 colorAxis:{
                     minValue: 0,  colors: ['#fffcfc', '#b00b0b']
                 },
-                height:500
+                height:400
             },
 
         }

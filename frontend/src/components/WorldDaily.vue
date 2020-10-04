@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="12">
             <chart-card>
                 <template v-slot:title>
                     코로나 발병 세계 지도
@@ -11,14 +11,14 @@
                     :settings="{ packages: [ 'geochart'] }"
                     :data="worldGeoChartData"
                     :options="worldGeoChartOptions"
-                    :resizeDebounce="1000"
+                    :resizeDebounce="500"
                     v-if="worldGeoChartLoaded"
                     
                     />
                 </template>
             </chart-card>
         </v-col>
-        <v-col cols="12" md="6">
+        <!-- <v-col cols="12" md="6">
             <chart-card>
                 <template v-slot:title>
                     전세계 확진자 증가추이
@@ -27,11 +27,11 @@
                     <line-chart
                     :chart-data="dailyTotalChartData"
                     v-if="dailyTotalChartLoaded"
-                    :height="550">
+                    :height="450">
                     </line-chart>
                 </template>
             </chart-card>
-        </v-col>
+        </v-col> -->
     </v-row>
 </template>
 
@@ -56,21 +56,33 @@ export default {
                 colorAxis:{
                     minValue: 0,  colors: ['#fffcfc', '#b00b0b']
                 },
-                height:550
+                height: this.chartHeight
             },
             worldGeoChartLoaded: false,
 
             dailyTotalChartData: '',
-            dailyTotalChartLoaded: false
+            dailyTotalChartLoaded: false,
+
+            chartRatio : 0.624,
+           
+            
         }
     },
     created(){
-        this.getWorldDailyTotalChart()
+        //this.getWorldDailyTotalChart()
     },
     watch:{
         countryData(){
             this.worldCountryGeoChart()
         },
+        chartHeight(){
+            this.worldGeoChartOptions.height = this.chartHeight
+        }
+    },
+    computed:{
+        chartHeight(){
+            return this.$vuetify.breakpoint.width * this.chartRatio
+        }
     },
     methods:{
         worldCountryGeoChart(){
@@ -97,8 +109,8 @@ export default {
         async getWorldDailyTotalChart(){
 
             try{
-                const { data } = await axios.get('/covid/world/daily')
-                
+                //const { data } = await axios.get('/covid/world/daily')
+                const { data } = await axios.get('https://covid19.mathdro.id/api/daily')
                 
                 this.dailyTotalChartData  = {
                     labels : data.map(covid => covid.reportDate.substring(5)),
@@ -116,12 +128,14 @@ export default {
                     ]
                 }
                 
-
                 this.dailyTotalChartLoaded = true
             }catch(e){
                 console.error(e)
             }
             
+        },
+        onResize(){
+            this.chartHeight = window.innerHeight
         }
     }
 }

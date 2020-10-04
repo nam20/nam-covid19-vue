@@ -2,26 +2,25 @@
     <v-row justify="center" id="covidStatus"> 
         <v-col cols="12" sm="12" md="6">
             <v-card>
-                
-                <v-card-title class="justify-center">
-                    <h3>국내 현황</h3>
-                </v-card-title>
-                <v-row>
-                    <v-col cols="6" sm="3" class="text-center">
+                <v-card-subtitle style="color: #4678eb; background-color:#f0f2f7" >
+                    <h2>국내 현황</h2>
+                </v-card-subtitle>
+                <v-row class="pt-4" justify="center">
+                    <v-col cols="5" sm="3"  class="text-center">
                         <p>확진자</p>
                         <p class="number mb-0">{{todayKoreaTotal.totalConfirmed}}</p>
                         <p class="covid">+({{todayKoreaTotal.newConfirmed}})</p>                            
                     </v-col>
-                    <v-col cols="6" sm="3" class="text-center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>사망자</p>
                         <p class="number covid mb-0">{{todayKoreaTotal.totalDeaths}}</p>
                         <p class="covid">+({{todayKoreaTotal.newDeaths}})</p>   
                     </v-col>
-                    <v-col cols="6" sm="3" class="text-center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>치명율</p>
                         <p class="number">{{todayKoreaTotal.totalCritical}}%</p>
                     </v-col>
-                    <v-col cols="6" sm="3" class="text-center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>완치자</p>
                         <p class="number mb-0">{{todayKoreaTotal.totalRecovered}}</p>
                         <p class="recovered">+({{todayKoreaTotal.newRecovered}})</p>   
@@ -32,25 +31,25 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
             <v-card>
-                <v-card-title class="justify-center">
-                    <h3>세계 현황</h3>
-                </v-card-title>
-                <v-row>
-                    <v-col cols="6" sm="3" class="text-center">
+                <v-card-subtitle style="color: #4678eb; background-color:#f0f2f7" >
+                    <h2>세계 현황</h2>
+                </v-card-subtitle>
+                <v-row class="pt-4" justify="center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>확진자</p>
                         <p class="number mb-0">{{todayWorldTotal.totalConfirmed}}</p>       
                         <p class="covid">+({{todayWorldTotal.newConfirmed}})</p>                         
                     </v-col>
-                    <v-col cols="6" sm="3" class="text-center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>사망자</p>
                         <p class="number covid mb-0">{{todayWorldTotal.totalDeaths}}</p>
                         <p class="covid">+({{todayWorldTotal.newDeaths}})</p>   
                     </v-col>
-                    <v-col cols="6" sm="3" class="text-center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>치명율</p>
                         <p class="number">{{todayWorldTotal.totalCritical}}%</p>
                     </v-col>
-                    <v-col cols="6" sm="3" class="text-center">
+                    <v-col cols="5" sm="3" class="text-center">
                         <p>완치자</p>
                         <p class="number mb-0">{{todayWorldTotal.totalRecovered}}</p>
                         <p class="recovered">+({{todayWorldTotal.newRecovered}})</p>   

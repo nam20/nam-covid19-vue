@@ -11,9 +11,6 @@
             :cityData="koreaCityData">
             </korea-daily>
         
-            <covid-news>
-            </covid-news>
-      
             <city-gender
             :cityData="koreaCityData"
             :genderData="koreaGenData">
@@ -31,6 +28,9 @@
             <world-daily
             :countryData="countryTotalData">
             </world-daily>
+
+            <covid-news>
+            </covid-news>
 
             <covid-other
             :koreaTotalData="koreaDailyTotalData" 
@@ -72,8 +72,8 @@ export default {
         }
     },
     created(){
-        this.getCountryTotal()
-        this.getKoreaDailyTotal()
+        this.getCountryTotal();
+        this.getKoreaDailyTotal();
         this.covidGenAge();
         this.covidCity();
     },
